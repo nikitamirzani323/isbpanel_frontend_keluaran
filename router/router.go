@@ -5,6 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/nikitamirzani323/isbpanel_frontend_keluaran/controller"
 )
 
 func Init() *fiber.App {
@@ -17,5 +18,7 @@ func Init() *fiber.App {
 		ByteRange: true,
 		Browse:    true,
 	})
+
+	app.Post("api/listpasaran", controller.ListPasaran)
 	return app
 }

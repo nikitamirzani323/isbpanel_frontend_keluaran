@@ -6,7 +6,7 @@
         myModal.show();
     };
 </script>
-<nav class="navbar fixed-top navbar-light d-flex flex-wrap justify-content-center py-1 mb-1 " style="height:50px;background-color:#f5cf78;">
+<nav class="navbar fixed-top navbar-light d-flex flex-wrap justify-content-center py-2 mb-5 " style="height:50px;background-color:#d8074b;">
     <center>
         <img style="margin-top:-10px;" src="logo_isbresult.png" width="100" alt="" />
     </center>    
