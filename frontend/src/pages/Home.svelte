@@ -2,6 +2,21 @@
     import Modal from "../component/Modal.svelte"
     let listpasaran = [];
     let listresult = [];
+    let listkeluaran = [];
+    let listpaito_minggu = [];
+    let listpaito_senin = [];
+    let listpaito_selasa = [];
+    let listpaito_rabu = [];
+    let listpaito_kamis = [];
+    let listpaito_jumat = [];
+    let listpaito_sabtu = [];
+    let record_minggu = ""
+    let record_senin = ""
+    let record_selasa = ""
+    let record_rabu = ""
+    let record_kamis = ""
+    let record_jumat = ""
+    let record_sabtu = ""
     let myModal = "";
 
     async function initPasaran() {
@@ -45,10 +60,119 @@
             }
         }
     }
+    async function initKeluaran(e) {
+        listkeluaran = [];
+        listpaito_minggu = [];
+        listpaito_senin = [];
+        listpaito_selasa = [];
+        listpaito_rabu = [];
+        listpaito_kamis = [];
+        listpaito_jumat = [];
+        listpaito_sabtu = [];
+        const respasaran = await fetch("/api/listkeluaran", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                pasaran : e
+            }),
+        });
+        if (!respasaran.ok) {
+            const pasarMessage = `An error has occured: ${resPasar.status}`;
+            throw new Error(pasarMessage);
+        } else {
+            const jsonpasaran = await respasaran.json();
+            console.log(jsonpasaran)
+            if (jsonpasaran.status == 200) {
+                let record = jsonpasaran.record;
+                record_minggu = jsonpasaran.paito_minggu;
+                record_senin = jsonpasaran.paito_senin;
+                record_selasa = jsonpasaran.paito_selasa;
+                record_rabu = jsonpasaran.paito_rabu;
+                record_kamis = jsonpasaran.paito_kamis;
+                record_jumat = jsonpasaran.paito_jumat;
+                record_sabtu = jsonpasaran.paito_sabtu;
+                if (record != null) {
+                    for (var i = 0; i < record.length; i++) {
+                        listkeluaran = [
+                            ...listkeluaran,
+                            {
+                                keluaran_datekeluaran: record[i]["keluaran_datekeluaran"],
+                                keluaran_periode: record[i]["keluaran_periode"],
+                                keluaran_nomor: record[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                    for (var i = 0; i < record_minggu.length; i++) {
+                        listpaito_minggu = [
+                            ...listpaito_minggu,
+                            {
+                                keluaran_nomor: record_minggu[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                    for (var i = 0; i < record_senin.length; i++) {
+                        listpaito_senin = [
+                            ...listpaito_senin,
+                            {
+                                keluaran_nomor: record_senin[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                    
+                    for (var i = 0; i < record_selasa.length; i++) {
+                        listpaito_selasa = [
+                            ...listpaito_selasa,
+                            {
+                                keluaran_nomor: record_selasa[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                    console.log("SELASA " + listpaito_selasa)
+                    for (var i = 0; i < record_rabu.length; i++) {
+                        listpaito_rabu = [
+                            ...listpaito_rabu,
+                            {
+                                keluaran_nomor: record_rabu[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                    for (var i = 0; i < record_kamis.length; i++) {
+                        listpaito_kamis = [
+                            ...listpaito_kamis,
+                            {
+                                keluaran_nomor: record_kamis[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                    for (var i = 0; i < record_jumat.length; i++) {
+                        listpaito_jumat = [
+                            ...listpaito_jumat,
+                            {
+                                keluaran_nomor: record_jumat[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                    for (var i = 0; i < record_sabtu.length; i++) {
+                        listpaito_sabtu = [
+                            ...listpaito_sabtu,
+                            {
+                                keluaran_nomor: record_sabtu[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                } 
+               
+            } else {
+                alert("Error");
+            }
+        }
+    }
     const handlecallresult = (e) => {
-        alert(e)
         myModal = new bootstrap.Modal(document.getElementById("modalresult"));
         myModal.show();
+        initKeluaran(e)
     };
     initPasaran()
 </script>
@@ -542,22 +666,22 @@
                                 width="*"
                                 style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">DATE</th>
                             <th
-                                width="25%"
-                                style="text-align: right;vertical-align:top;font-size: 14px;color:#ffffff;">TANGGAL</th>
+                                width="40%"
+                                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">PERIODE</th>
                             <th
-                                width="25%"
-                                style="text-align: right;vertical-align:top;font-size: 14px;color:#ffffff;">NOMOR</th>
+                                width="50%"
+                                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">NOMOR</th>
                         </tr>
                     </thead>
                     <tbody style="border-top:none;">
-                        {#each listresult as rec}
+                        {#each listkeluaran as rec}
                             <tr style="">
                                 <td
-                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">{rec.sdsbday_date}</td>
+                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_datekeluaran}</td>
                                 <td
-                                    style="text-align: right;vertical-align:top;font-size: 13px;color:#ffffff;">{rec.sdsbday_prize1}</td>
+                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_periode}</td>
                                 <td
-                                    style="text-align: right;vertical-align:top;font-size: 13px;color:#ffffff;">{rec.sdsbday_prize2}</td>
+                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_nomor}</td>
                             </tr>
                         {/each}
                     </tbody>
@@ -576,35 +700,62 @@
                                 style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">MINGGU</th>
                             <th
                                 width="25%"
-                                style="text-align: right;vertical-align:top;font-size: 14px;color:#ffffff;">SENIN</th>
+                                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">SENIN</th>
                             <th
                                 width="25%"
-                                style="text-align: right;vertical-align:top;font-size: 14px;color:#ffffff;">SELASA</th>
+                                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">SELASA</th>
                             <th
                                 width="25%"
-                                style="text-align: right;vertical-align:top;font-size: 14px;color:#ffffff;">RABU</th>
+                                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">RABU</th>
                             <th
                                 width="25%"
-                                style="text-align: right;vertical-align:top;font-size: 14px;color:#ffffff;">KAMIS</th>
+                                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">KAMIS</th>
                             <th
                                 width="25%"
-                                style="text-align: right;vertical-align:top;font-size: 14px;color:#ffffff;">JUMAT</th>
+                                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">JUMAT</th>
                             <th
                                 width="25%"
-                                style="text-align: right;vertical-align:top;font-size: 14px;color:#ffffff;">SABTU</th>
+                                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">SABTU</th>
                         </tr>
                     </thead>
                     <tbody style="border-top:none;">
-                        {#each listresult as rec}
-                            <tr style="">
-                                <td
-                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">{rec.sdsbday_date}</td>
-                                <td
-                                    style="text-align: right;vertical-align:top;font-size: 13px;color:#ffffff;">{rec.sdsbday_prize1}</td>
-                                <td
-                                    style="text-align: right;vertical-align:top;font-size: 13px;color:#ffffff;">{rec.sdsbday_prize2}</td>
-                            </tr>
-                        {/each}
+                        <tr style="">
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                                {#each listpaito_minggu as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                                {#each listpaito_senin as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                                {#each listpaito_selasa as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                                {#each listpaito_rabu as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                                {#each listpaito_kamis as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                                {#each listpaito_jumat as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                                {#each listpaito_sabtu as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
