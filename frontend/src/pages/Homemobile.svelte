@@ -1,6 +1,22 @@
 <script>
+    import Modal from "../component/Modal.svelte"
     let listpasaran = [];
-
+    let listkeluaran = [];
+    let listpaito_minggu = [];
+    let listpaito_senin = [];
+    let listpaito_selasa = [];
+    let listpaito_rabu = [];
+    let listpaito_kamis = [];
+    let listpaito_jumat = [];
+    let listpaito_sabtu = [];
+    let record_minggu = ""
+    let record_senin = ""
+    let record_selasa = ""
+    let record_rabu = ""
+    let record_kamis = ""
+    let record_jumat = ""
+    let record_sabtu = ""
+    let myModal = "";
     async function initPasaran() {
         const respasaran = await fetch("/api/listpasaran", {
             method: "POST",
@@ -42,6 +58,131 @@
             }
         }
     }
+    async function initKeluaran(e) {
+        listkeluaran = [];
+        listpaito_minggu = [];
+        listpaito_senin = [];
+        listpaito_selasa = [];
+        listpaito_rabu = [];
+        listpaito_kamis = [];
+        listpaito_jumat = [];
+        listpaito_sabtu = [];
+        const respasaran = await fetch("/api/listkeluaran", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                pasaran : e
+            }),
+        });
+        if (!respasaran.ok) {
+            const pasarMessage = `An error has occured: ${resPasar.status}`;
+            throw new Error(pasarMessage);
+        } else {
+            const jsonpasaran = await respasaran.json();
+            console.log(jsonpasaran)
+            if (jsonpasaran.status == 200) {
+                let record = jsonpasaran.record;
+                record_minggu = jsonpasaran.paito_minggu;
+                record_senin = jsonpasaran.paito_senin;
+                record_selasa = jsonpasaran.paito_selasa;
+                record_rabu = jsonpasaran.paito_rabu;
+                record_kamis = jsonpasaran.paito_kamis;
+                record_jumat = jsonpasaran.paito_jumat;
+                record_sabtu = jsonpasaran.paito_sabtu;
+                if (record != null) {
+                    for (var i = 0; i < record.length; i++) {
+                        listkeluaran = [
+                            ...listkeluaran,
+                            {
+                                keluaran_datekeluaran: record[i]["keluaran_datekeluaran"],
+                                keluaran_periode: record[i]["keluaran_periode"],
+                                keluaran_nomor: record[i]["keluaran_nomor"],
+                            },
+                        ];
+                    } 
+                } 
+                if (record_minggu != null) {
+                    for (var i = 0; i < record_minggu.length; i++) {
+                        listpaito_minggu = [
+                            ...listpaito_minggu,
+                            {
+                                keluaran_nomor: record_minggu[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                }
+                if (record_senin != null) {
+                    for (var i = 0; i < record_senin.length; i++) {
+                        listpaito_senin = [
+                            ...listpaito_senin,
+                            {
+                                keluaran_nomor: record_senin[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                }
+                if (record_selasa != null) {
+                    for (var i = 0; i < record_selasa.length; i++) {
+                        listpaito_selasa = [
+                            ...listpaito_selasa,
+                            {
+                                keluaran_nomor: record_selasa[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                }
+                if (record_rabu != null) {
+                    for (var i = 0; i < record_rabu.length; i++) {
+                        listpaito_rabu = [
+                            ...listpaito_rabu,
+                            {
+                                keluaran_nomor: record_rabu[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                }
+                if (record_kamis != null) {
+                    for (var i = 0; i < record_kamis.length; i++) {
+                        listpaito_kamis = [
+                            ...listpaito_kamis,
+                            {
+                                keluaran_nomor: record_kamis[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                }
+                if (record_jumat != null) {
+                    for (var i = 0; i < record_jumat.length; i++) {
+                        listpaito_jumat = [
+                            ...listpaito_jumat,
+                            {
+                                keluaran_nomor: record_jumat[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                }
+                if (record_sabtu != null) {
+                    for (var i = 0; i < record_sabtu.length; i++) {
+                        listpaito_sabtu = [
+                            ...listpaito_sabtu,
+                            {
+                                keluaran_nomor: record_sabtu[i]["keluaran_nomor"],
+                            },
+                        ];
+                    }
+                }
+            } else {
+                alert("Error");
+            }
+        }
+    }
+    const handlecallresult = (e) => {
+        myModal = new bootstrap.Modal(document.getElementById("modalresult"));
+        myModal.show();
+        initKeluaran(e)
+    };
     initPasaran()
 </script>
 
@@ -49,13 +190,13 @@
     <div class="col-sm-12" style="">
         <div class="card" style="background-color:#191c1f;border:none;margin:5px;">
             <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #191c1f;">
+                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
                 <h1 style="font-size: 14px;color:white;font-weight:bold;">Result Togel</h1>
             </div>
             <div
                 class="card-body"
                 style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;">
-                <table class="table" style="width: 100%;" >
+                <table class="table table-sm" style="width: 100%;" >
                     <thead>
                         <tr>
                             <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="30%">PASARAN</th>
@@ -68,7 +209,11 @@
                             <tr>
                                 <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_name}</td>
                                 <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_datekeluaran}</td>
-                                <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_keluaran}</td>
+                                <td 
+                                    on:click={() => {
+                                        handlecallresult(rec.pasaran_id);
+                                    }}
+                                    NOWRAP style="cursor:pointer;text-decoration:underline;text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_keluaran}</td>
                             </tr>
                         {/each}
                     </tbody>
@@ -77,19 +222,19 @@
         </div>
         <div class="card" style="background-color:#191c1f;border:none;margin:5px;">
             <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #191c1f;">
+                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
                 <h1 style="font-size: 14px;color:white;font-weight:bold;">Prediksi Togel</h1>
             </div>
             <div
                 class="card-body"
                 style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;">
-                <table class="table" style="width: 100%;" >
+                <table class="table table-sm" style="width: 100%;" >
                     <thead>
                         <tr>
-                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="20%">PASARAN</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="20%">TANGGAL</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="*">BBFS</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="*">NOMOR</th>
+                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="*">PASARAN</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="50%">TANGGAL</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="20%">BBFS</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="20%">NOMOR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,8 +242,8 @@
                         <tr>
                             <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_name}</td>
                             <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_dateprediksi}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_bbfsprediksi}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_nomorprediksi}</td>
+                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_bbfsprediksi}</td>
+                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_nomorprediksi}</td>
                         </tr>
                         {/each}
                         
@@ -109,23 +254,23 @@
         <div class="card" style="background-color:#ffbe00;border:none;margin:5px;">
             <div class="card-header"
                 style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-                <h1 style="font-size: 14px;color:black;">Angka Main Berdasarkan Hari Dan Pasaran</h1>
+                <h1 style="font-size: 14px;color:black;font-weight:bold;">Angka Main Berdasarkan Hari Dan Pasaran</h1>
             </div>
             <div
                 class="card-body"
                 style="margin: 0px;padding:0px;background-color: #ffbe00;">
-                <table class="table" style="width: 100%;" >
+                <table class="table table-sm" style="width: 100%;" >
                     <thead>
                         <tr style="background-color: #ffbe00;border-style: none;border-bottom-color: #ffbe00;">
-                            <th style="text-align:center;vertical-align:top;font-size:14px;color:black;background-color:#ffbe00;">HARI</th>
-                            <th style="text-align:center;vertical-align:top;font-size:14px;color:black;background-color:#ffbe00;">PON</th>
-                            <th style="text-align:center;vertical-align:top;font-size:14px;color:black;background-color:#ffbe00;">WAGE</th>
-                            <th style="text-align:center;vertical-align:top;font-size:14px;color:black;background-color:#ffbe00;">KLIWON</th>
-                            <th style="text-align:center;vertical-align:top;font-size:14px;color:black;background-color:#ffbe00;">LEGI</th>
-                            <th style="text-align:center;vertical-align:top;font-size:14px;color:black;background-color:#ffbe00;">PAHING</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">HARI</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">PON</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">WAGE</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">KLIWON</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">LEGI</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">PAHING</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="border-top:none;border-bottom-color: #e91e65;">
                         <tr style="background-color: #ffbe00;border-style: none;border-bottom-color: #ffbe00;">
                             <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>SENIN</b></td>
                             <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">89102</td>
@@ -173,22 +318,22 @@
         <div class="card" style="background-color:#ffbe00;border:none;margin:5px;">
             <div class="card-header"
                 style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-                <h1 style="font-size: 14px;color:black;">Table Shio 2021</h1>
+                <h1 style="font-size: 14px;color:black;font-weight:bold;">Table Shio 2021</h1>
             </div>
             <div
                 class="card-body"
                 style="margin: 0px;padding:0px;background-color: #ffbe00;">
                 <div class="table-responsive">
-                    <table class="table" style="width: 100%;" >
+                    <table class="table table-sm" style="width: 100%;" >
                         <thead>
                             <tr>
                                 <th style="text-align:center;vertical-align:top;font-size:14px;color:black;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">SHIO</th>
                                 <th colspan="9" style="text-align:center;vertical-align:top;font-size:14px;color:black;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">ANGKA</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="border-top:none;border-bottom-color: #e91e65;">
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KERBAU</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KERBAU</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">13</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">25</td>
@@ -200,7 +345,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">97</td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>TIKUS</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>TIKUS</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">02</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">14</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">26</td>
@@ -212,7 +357,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">98</td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>BABI</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>BABI</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">03</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">15</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">28</td>
@@ -224,7 +369,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">99</td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>ANJING</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>ANJING</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">04</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">16</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">29</td>
@@ -236,7 +381,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">00</td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>AYAM</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>AYAM</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">05</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">17</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">30</td>
@@ -248,7 +393,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MONYET</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MONYET</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">06</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">18</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">31</td>
@@ -260,7 +405,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KAMBING</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KAMBING</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">06</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">19</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">32</td>
@@ -272,7 +417,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KUDA</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KUDA</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">07</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">20</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">33</td>
@@ -284,7 +429,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>ULAR</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>ULAR</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">08</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">21</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">34</td>
@@ -296,7 +441,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>NAGA</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>NAGA</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">09</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">22</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">35</td>
@@ -308,7 +453,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KELINCI</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KELINCI</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">10</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">36</td>
@@ -320,7 +465,7 @@
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MACAN</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MACAN</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">11</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">24</td>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">37</td>
@@ -339,13 +484,13 @@
         <div class="card" style="background-color:#ffbe00;border:none;margin:5px;">
             <div class="card-header"
                 style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-                <h1 style="font-size: 14px;color:black;">Table Tyesen</h1>
+                <h1 style="font-size: 14px;color:black;font-weight:bold;">Table Tyesen</h1>
             </div>
             <div
                 class="card-body"
                 style="margin: 0px;padding:0px;background-color: #ffbe00;">
                 <div class="table-responsive">
-                    <table class="table" style="width: 100%;" >
+                    <table class="table table-sm" style="width: 100%;" >
                         <tbody>
                             <tr>
                                 <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
@@ -466,3 +611,167 @@
         </div>
     </div>
 </div>
+<Modal
+    modal_id="modalresult"
+    modal_size="modal-dialog-centered"
+    modal_title="LAST RESULT"
+    modal_modal_css="background-color:#191c1f;border:none;"
+    modal_header_css="color:white;font-weight:bold;"
+    modal_body_css="height:400px;overflow-y: scroll;padding:5px;"
+    modal_footer_css="padding:5px;"
+    modal_footer={false}
+    header_flag={true}
+>
+    <slot:template slot="header">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <button
+                    class="nav-link active"
+                    id="pills-all-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-all"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-all"
+                    aria-selected="true">RESULT</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    class="nav-link"
+                    id="pills-paito-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-paito"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-paito"
+                    aria-selected="false">PAITO</button>
+            </li>
+          </ul>
+    </slot:template>
+    <slot:template slot="body">
+        <div class="tab-content" id="nav-tabContent">
+            <div
+                class="tab-pane fade show active"
+                id="pills-all"
+                role="tabpanel"
+                aria-labelledby="pills-all-tab">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr style="background-color: #191c1f;border-bottom-color: #e80650;" >
+                            <th
+                                width="*"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">DATE</th>
+                            <th
+                                width="40%"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">PERIODE</th>
+                            <th
+                                width="40%"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">NOMOR</th>
+                        </tr>
+                    </thead>
+                    <tbody style="border-top:none;">
+                        {#each listkeluaran as rec}
+                            <tr style="">
+                                <td
+                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_datekeluaran}</td>
+                                <td
+                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_periode}</td>
+                                <td
+                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;border-bottom:1px solid #191c1f;">{rec.keluaran_nomor}</td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
+            </div>
+            <div
+                class="tab-pane fade"
+                id="pills-paito"
+                role="tabpanel"
+                aria-labelledby="pills-paito-tab">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr style="background-color: #191c1f;border-bottom-color: #e80650;" >
+                            <th
+                                width="*"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">MINGGU</th>
+                            <th
+                                width="25%"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">SENIN</th>
+                            <th
+                                width="25%"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">SELASA</th>
+                            <th
+                                width="25%"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">RABU</th>
+                            <th
+                                width="25%"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">KAMIS</th>
+                            <th
+                                width="25%"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">JUMAT</th>
+                            <th
+                                width="25%"
+                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">SABTU</th>
+                        </tr>
+                    </thead>
+                    <tbody style="border-top:none;">
+                        <tr style="">
+                            <td style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;">
+                                {#each listpaito_minggu as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;">
+                                {#each listpaito_senin as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;">
+                                {#each listpaito_selasa as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;">
+                                {#each listpaito_rabu as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;">
+                                {#each listpaito_kamis as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;">
+                                {#each listpaito_jumat as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                            <td style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;">
+                                {#each listpaito_sabtu as rec}
+                                    {rec.keluaran_nomor} <br>
+                                {/each}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </slot:template>
+</Modal>
+
+<style>
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: black;
+        background-color: #ffbe00;
+    }
+    .nav-pills .nav-link {
+        border-radius: .1rem;
+    }
+    button {
+        margin: 0;
+        font-family: inherit;
+        font-size: 12px;
+        line-height: inherit;
+    }
+</style>

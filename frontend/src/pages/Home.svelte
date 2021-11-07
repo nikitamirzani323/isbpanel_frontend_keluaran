@@ -1,7 +1,6 @@
 <script>
     import Modal from "../component/Modal.svelte"
     let listpasaran = [];
-    let listresult = [];
     let listkeluaran = [];
     let listpaito_minggu = [];
     let listpaito_senin = [];
@@ -103,7 +102,9 @@
                                 keluaran_nomor: record[i]["keluaran_nomor"],
                             },
                         ];
-                    }
+                    } 
+                } 
+                if (record_minggu != null) {
                     for (var i = 0; i < record_minggu.length; i++) {
                         listpaito_minggu = [
                             ...listpaito_minggu,
@@ -112,6 +113,8 @@
                             },
                         ];
                     }
+                }
+                if (record_senin != null) {
                     for (var i = 0; i < record_senin.length; i++) {
                         listpaito_senin = [
                             ...listpaito_senin,
@@ -120,7 +123,8 @@
                             },
                         ];
                     }
-                    
+                }
+                if (record_selasa != null) {
                     for (var i = 0; i < record_selasa.length; i++) {
                         listpaito_selasa = [
                             ...listpaito_selasa,
@@ -129,7 +133,8 @@
                             },
                         ];
                     }
-                    console.log("SELASA " + listpaito_selasa)
+                }
+                if (record_rabu != null) {
                     for (var i = 0; i < record_rabu.length; i++) {
                         listpaito_rabu = [
                             ...listpaito_rabu,
@@ -138,6 +143,8 @@
                             },
                         ];
                     }
+                }
+                if (record_kamis != null) {
                     for (var i = 0; i < record_kamis.length; i++) {
                         listpaito_kamis = [
                             ...listpaito_kamis,
@@ -146,6 +153,8 @@
                             },
                         ];
                     }
+                }
+                if (record_jumat != null) {
                     for (var i = 0; i < record_jumat.length; i++) {
                         listpaito_jumat = [
                             ...listpaito_jumat,
@@ -154,6 +163,8 @@
                             },
                         ];
                     }
+                }
+                if (record_sabtu != null) {
                     for (var i = 0; i < record_sabtu.length; i++) {
                         listpaito_sabtu = [
                             ...listpaito_sabtu,
@@ -162,8 +173,7 @@
                             },
                         ];
                     }
-                } 
-               
+                }
             } else {
                 alert("Error");
             }
@@ -192,7 +202,7 @@
                         <tr>
                             <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="20%">PASARAN</th>
                             <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="20%">TANGGAL</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="*">KELUARAN&nbsp;</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="*">KELUARAN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -274,7 +284,7 @@
                             <th style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;">PAHING</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="border-top:none;border-bottom-color: #e91e65;">
                         <tr style="background-color: #ffbe00;border-style: none;border-bottom-color: #ffbe00;">
                             <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>SENIN</b></td>
                             <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">89102</td>
@@ -335,7 +345,7 @@
                                 <th colspan="9" style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">ANGKA</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="border-top:none;border-bottom-color: #e91e65;">
                             <tr>
                                 <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KERBAU</b></td>
                                 <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01</td>
@@ -619,7 +629,7 @@
     modal_id="modalresult"
     modal_size="modal-dialog-centered"
     modal_title="LAST RESULT"
-    modal_modal_css="background-color:#282325;border:none;"
+    modal_modal_css="background-color:#191c1f;border:none;"
     modal_header_css="color:white;font-weight:bold;"
     modal_body_css="height:500px;overflow-y: scroll;padding:5px;"
     modal_footer_css="padding:5px;"
@@ -661,7 +671,7 @@
                 aria-labelledby="pills-all-tab">
                 <table class="table table-striped table-sm">
                     <thead>
-                        <tr style="background-color: #e91e65;border-bottom-color: #e91e65;" >
+                        <tr style="background-color: #191c1f;border-bottom-color: #e80650;" >
                             <th
                                 width="*"
                                 style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">DATE</th>
@@ -669,7 +679,7 @@
                                 width="40%"
                                 style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">PERIODE</th>
                             <th
-                                width="50%"
+                                width="40%"
                                 style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">NOMOR</th>
                         </tr>
                     </thead>
@@ -677,11 +687,11 @@
                         {#each listkeluaran as rec}
                             <tr style="">
                                 <td
-                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_datekeluaran}</td>
+                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_datekeluaran}</td>
                                 <td
-                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_periode}</td>
+                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_periode}</td>
                                 <td
-                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_nomor}</td>
+                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;border-bottom:1px solid #191c1f;">{rec.keluaran_nomor}</td>
                             </tr>
                         {/each}
                     </tbody>
@@ -694,7 +704,7 @@
                 aria-labelledby="pills-paito-tab">
                 <table class="table table-striped table-sm">
                     <thead>
-                        <tr style="background-color: #e91e65;border-bottom-color: #e91e65;" >
+                        <tr style="background-color: #191c1f;border-bottom-color: #e80650;" >
                             <th
                                 width="*"
                                 style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">MINGGU</th>
@@ -720,37 +730,37 @@
                     </thead>
                     <tbody style="border-top:none;">
                         <tr style="">
-                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                                 {#each listpaito_minggu as rec}
                                     {rec.keluaran_nomor} <br>
                                 {/each}
                             </td>
-                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                                 {#each listpaito_senin as rec}
                                     {rec.keluaran_nomor} <br>
                                 {/each}
                             </td>
-                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                                 {#each listpaito_selasa as rec}
                                     {rec.keluaran_nomor} <br>
                                 {/each}
                             </td>
-                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                                 {#each listpaito_rabu as rec}
                                     {rec.keluaran_nomor} <br>
                                 {/each}
                             </td>
-                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                                 {#each listpaito_kamis as rec}
                                     {rec.keluaran_nomor} <br>
                                 {/each}
                             </td>
-                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                                 {#each listpaito_jumat as rec}
                                     {rec.keluaran_nomor} <br>
                                 {/each}
                             </td>
-                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">
+                            <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                                 {#each listpaito_sabtu as rec}
                                     {rec.keluaran_nomor} <br>
                                 {/each}
@@ -765,7 +775,11 @@
 </Modal>
 
 <style>
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: black;
+        background-color: #ffbe00;
+    }
     .nav-pills .nav-link {
-        border-radius: none;
+        border-radius: .1rem;
     }
 </style>

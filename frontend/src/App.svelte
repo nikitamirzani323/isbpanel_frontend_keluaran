@@ -30,5 +30,7 @@
 </style>
 {:else}
 <Navbar />
-	<Homemobile />
+	<div class="container" style="margin-top: 60px;">
+		<Homemobile />
+	</div>
 {/if}
