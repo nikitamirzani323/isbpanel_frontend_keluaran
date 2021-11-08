@@ -24,7 +24,7 @@
 </div>
 <style>
 	.container {
-		width: 1100px;
+		width: 1000px;
 		max-width: none !important;
 	}
 </style>

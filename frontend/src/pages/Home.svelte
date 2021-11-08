@@ -185,6 +185,130 @@
         initKeluaran(e)
     };
     initPasaran()
+
+    let num1 = "a00"
+    let num2 = "a00"
+    let num3 = "a00"
+    let num4 = "a00"
+    let num5 = "a00"
+    let num6 = "a00"
+    let doing = false;
+    var coin = [
+        new Audio("/sounds/coin.mp3"),
+        new Audio("/sounds/coin.mp3"),
+        new Audio("/sounds/coin.mp3"),
+        new Audio("/sounds/coin.mp3"),
+        new Audio("/sounds/coin.mp3"),
+        new Audio("/sounds/coin.mp3")
+    ]
+    var spin = [
+        new Audio("/sounds/spin.mp3"),
+        new Audio("/sounds/spin.mp3"),
+        new Audio("/sounds/spin.mp3"),
+        new Audio("/sounds/spin.mp3"),
+        new Audio("/sounds/spin.mp3"),
+        new Audio("/sounds/spin.mp3"),
+        new Audio("/sounds/spin.mp3")
+    ];
+    const generator = () => {
+        console.log(doing)
+        if (doing){return null;}
+        doing = true;
+        let numChanges = randomInt(1,4)*7
+        let numberAngka = numChanges+randomInt(1,7)
+        let numberAngka2 = numChanges+2*7+randomInt(1,7)
+        let numberAngka3 = numChanges+4*7+randomInt(1,7)
+        let numberAngka4 = numChanges+6*7+randomInt(1,7)
+        let numberAngka5 = numChanges+8*7+randomInt(1,7)
+        let numberAngka6 = numChanges+8*7+randomInt(1,7)
+
+        let i1 = 0;
+        let i2 = 0;
+        let i3 = 0;
+        let i4 = 0;
+        let i5 = 0;
+        let i6 = 0;
+        let sound = 0
+        num1 = setInterval(spin1, 50);
+        num2 = setInterval(spin2, 50);
+        num3 = setInterval(spin3, 50);
+        num4 = setInterval(spin4, 50);
+        num5 = setInterval(spin5, 50);
+        num6 = setInterval(spin6, 50);
+        function spin1(){
+            i1++;
+            if (i1>=numberAngka){
+                // coin[0].play()
+                clearInterval(num1);
+                return null;
+            }
+            num1 = "a"+parseInt(chance.integer({min: 0,max: 9}))
+        }
+        function spin2(){
+            i2++;
+            if (i2>=numberAngka2){
+                // coin[1].play()
+                clearInterval(num2);
+                return null;
+            }
+            num2 = "a"+parseInt(chance.integer({min: 0,max: 9}))
+        }
+        function spin3(){
+            i3++;
+            if (i3>=numberAngka3){
+                // coin[2].play()
+                clearInterval(num3);
+                return null;
+            }
+            num3 = "a"+parseInt(chance.integer({min: 0,max: 9}))
+        }
+        function spin4(){
+            i4++;
+            if (i4>=numberAngka4){
+                // coin[3].play()
+                clearInterval(num4);
+                return null;
+            }
+            num4 = "a"+parseInt(chance.integer({min: 0,max: 9}))
+        }
+        function spin5(){
+            i5++;
+            if (i5>=numberAngka5){
+                // coin[4].play()
+                clearInterval(num5);
+                return null;
+            }
+            
+            num5 = "a"+parseInt(chance.integer({min: 0,max: 9}))
+        }
+        function spin6(){
+            i6++;
+            if (i6>=numberAngka6){
+                // coin[5].play()
+                clearInterval(num6);
+                testWin();
+                return null;
+            }
+            sound=0;
+            spin[sound].play();
+            num6 = "a"+parseInt(chance.integer({min: 0,max: 9}))
+        }
+        
+        num1 = "a00"
+        num2 = "a00"
+        num3 = "a00"
+        num4 = "a00"
+        num5 = "a00"
+        num6 = "a00"
+        doing = false
+    };
+    function testWin(){
+	    doing = false;
+    }
+   
+    function randomInt(min, max){
+	    return Math.floor((Math.random() * (max-min+1)) + min);
+    }
 </script>
 
 <div class="row" style="padding-top:10px;padding-bottom:10px;">
@@ -200,25 +324,29 @@
                 <table class="table table-sm" style="width: 100%;" >
                     <thead>
                         <tr>
-                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="20%">PASARAN</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="20%">TANGGAL</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="*">KELUARAN</th>
+                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="*">PASARAN</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="40%">TANGGAL</th>
+                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="30%">HARI</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="20%">JADWAL</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="20%">KELUARAN</th>
                         </tr>
                     </thead>
                     <tbody>
                         {#each listpasaran as rec}
                             <tr>
-                                <td NOWRAP style="text-align:left;vertical-align:top;font-size:12px;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:13px;">
+                                <td NOWRAP style="text-align:left;vertical-align:top;font-size:12px;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">
                                     <a href="{rec.pasaran_url}" target="_blank" style="color:white;">
                                         {rec.pasaran_name}
                                     </a>
                                 </td>
-                                <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:13px;">{rec.pasaran_datekeluaran}</td>
+                                <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_datekeluaran}</td>
+                                <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_diundi}</td>
+                                <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_jamjadwal}</td>
                                 <td 
                                     on:click={() => {
                                         handlecallresult(rec.pasaran_id);
                                     }}
-                                    NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:13px;font-weight:bold;cursor:pointer;text-decoration:underline;">
+                                    NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:underline;">
                                     {rec.pasaran_keluaran}
                                 </td>
                             </tr>
@@ -238,23 +366,23 @@
                 <table class="table table-sm" style="width: 100%;" >
                     <thead>
                         <tr>
-                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="20%">PASARAN</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="20%">TANGGAL</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 15px;" width="*">BBFS</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 14px;" width="*">NOMOR</th>
+                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="20%">PASARAN</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="20%">TANGGAL</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="*">BBFS</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="*">NOMOR</th>
                         </tr>
                     </thead>
                     <tbody>
                         {#each listpasaran as rec}
                         <tr>
-                            <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:13px;">
+                            <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">
                                 <a href="{rec.pasaran_url}" target="_blank" style="color:white;">
                                     {rec.pasaran_name}
                                 </a>
                             </td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:13px;">{rec.pasaran_dateprediksi}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:13px;font-weight:bold;">{rec.pasaran_bbfsprediksi}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:13px;font-weight:bold;">{rec.pasaran_nomorprediksi}</td>
+                            <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_dateprediksi}</td>
+                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;font-weight:bold;">{rec.pasaran_bbfsprediksi}</td>
+                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;font-weight:bold;">{rec.pasaran_nomorprediksi}</td>
                         </tr>
                         {/each}
                         
@@ -276,57 +404,83 @@
                 <table class="table table-sm" style="width: 100%;" >
                     <thead>
                         <tr style="background-color: #ffbe00;border-style: none;border-bottom-color: #ffbe00;">
-                            <th style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;">HARI</th>
-                            <th style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;">PON</th>
-                            <th style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;">WAGE</th>
-                            <th style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;">KLIWON</th>
-                            <th style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;">LEGI</th>
-                            <th style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;">PAHING</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">HARI</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">PON</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">WAGE</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">KLIWON</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">LEGI</th>
+                            <th style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;">PAHING</th>
                         </tr>
                     </thead>
                     <tbody style="border-top:none;border-bottom-color: #e91e65;">
                         <tr style="background-color: #ffbe00;border-style: none;border-bottom-color: #ffbe00;">
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>SENIN</b></td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">89102</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23456</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01234</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>SENIN</b></td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">89102</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23456</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01234</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>RABU</b></td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">90123</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">89012</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">34567</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>RABU</b></td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">90123</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">89012</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">34567</td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KAMIS</b></td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23456</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">45678</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01234</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23456</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KAMIS</b></td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23456</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">45678</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01234</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23456</td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>SABTU</b></td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">34567</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23456</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">12345</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>SABTU</b></td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">34567</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67890</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23456</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">12345</td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MINGGU</b></td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01234</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01234</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
-                            <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MINGGU</b></td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01234</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01234</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
+                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56789</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="card" style="background-color:#ffbe00;border:none;margin-top:5px;">
+            <div class="card-header"
+                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
+                <h1 style="font-size: 16px;color:black;">Random Generator</h1>
+            </div>
+            <div
+                class="card-body"
+                style="margin: 0px;padding:0px;background-color: #ffbe00;">
+                <center>
+                    <div id="num1" class="{num1}"></div>
+                    <div id="num2" class="{num2}"></div>
+                    <div id="num3" class="{num3}"></div>
+                    <div id="num4" class="{num4}"></div>
+                    <div id="num5" class="{num5}"></div>
+                    <div id="num6" class="{num6}"></div>
+                    <br>
+                    <br>
+                    <button 
+                        on:click={() => {
+                            generator();
+                        }}
+                        type="button" class="btn btn-dark btn-sm">Generate</button>
+                </center>
+                <br>
             </div>
         </div>
         <div class="card" style="background-color:#ffbe00;border:none;margin-top:5px;">
@@ -341,154 +495,154 @@
                     <table class="table table-sm" style="width: 100%;" >
                         <thead>
                             <tr>
-                                <th style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">SHIO</th>
-                                <th colspan="9" style="text-align:center;vertical-align:top;font-size:15px;color:black;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">ANGKA</th>
+                                <th style="text-align:left;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">SHIO</th>
+                                <th colspan="9" style="text-align:center;vertical-align:top;font-size:13px;color:black;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">ANGKA</th>
                             </tr>
                         </thead>
                         <tbody style="border-top:none;border-bottom-color: #e91e65;">
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KERBAU</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">13</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">25</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">37</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">49</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">61</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">73</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">85</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">97</td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KERBAU</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">01</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">13</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">25</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">37</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">49</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">61</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">73</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">85</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">97</td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>TIKUS</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">02</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">14</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">26</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">38</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">50</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">62</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">74</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">86</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">98</td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>TIKUS</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">02</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">14</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">26</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">38</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">50</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">62</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">74</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">86</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">98</td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>BABI</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">03</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">15</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">28</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">39</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">51</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">63</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">75</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">86</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">99</td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>BABI</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">03</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">15</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">28</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">39</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">51</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">63</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">75</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">86</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">99</td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>ANJING</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">04</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">16</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">29</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">40</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">52</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">64</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">75</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">87</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">00</td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>ANJING</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">04</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">16</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">29</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">40</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">52</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">64</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">75</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">87</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">00</td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>AYAM</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">05</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">17</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">30</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">41</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">53</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">65</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">76</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">88</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>AYAM</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">05</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">17</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">30</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">41</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">53</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">65</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">76</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">88</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MONYET</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">06</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">18</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">31</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">42</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">54</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">66</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">79</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">89</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MONYET</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">06</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">18</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">31</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">42</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">54</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">66</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">79</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">89</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KAMBING</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">06</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">19</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">32</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">43</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">55</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">80</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">90</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KAMBING</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">06</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">19</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">32</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">43</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">55</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">67</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">80</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">90</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KUDA</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">07</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">20</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">33</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">44</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">68</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">81</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">91</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KUDA</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">07</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">20</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">33</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">44</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">56</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">68</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">81</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">91</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>ULAR</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">08</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">21</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">34</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">45</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">57</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">69</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">82</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">92</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>ULAR</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">08</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">21</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">34</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">45</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">57</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">69</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">82</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">92</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>NAGA</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">09</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">22</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">35</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">46</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">58</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">70</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">83</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">93</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>NAGA</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">09</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">22</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">35</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">46</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">58</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">70</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">83</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">93</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KELINCI</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">10</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">36</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">47</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">59</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">71</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">84</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">94</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>KELINCI</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">10</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">23</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">36</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">47</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">59</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">71</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">84</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">94</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MACAN</b></td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">11</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">24</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">37</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">48</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">60</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">72</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">85</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">95</td>
-                                <td style="text-align:center;vertical-align:top;font-size:14px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
+                                <td style="text-align:left;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;"><b>MACAN</b></td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">11</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">24</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">37</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">48</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">60</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">72</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">85</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;">95</td>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;border-bottom:1px solid #ffbe00;color:black;"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -507,7 +661,7 @@
                     <table class="table table-sm" style="width: 100%;" >
                         <tbody>
                             <tr>
-                                <td style="text-align:center;vertical-align:top;font-size:13px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                     01 05 95 12 45<br />
                                     02 16 53 09 35<br />
                                     03 32 52 85 52<br />
@@ -529,7 +683,7 @@
                                     19 27 62 54 12<br />
                                     20 06 72 19 22
                                 </td>
-                                <td style="text-align:center;vertical-align:top;font-size:13px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                     21 22 93 55 43<br />
                                     22 21 70 50 20<br />
                                     23 30 84 81 34<br />
@@ -551,7 +705,7 @@
                                     39 44 55 77 05<br />
                                     40 43 76 78 26
                                 </td>
-                                <td style="text-align:center;vertical-align:top;font-size:13px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                     41 49 56 76 06<br />
                                     42 45 97 72 47<br />
                                     43 40 71 41 21<br />
@@ -573,7 +727,7 @@
                                     59 83 37 38 87<br />
                                     60 68 32 93 82
                                 </td>
-                                <td style="text-align:center;vertical-align:top;font-size:13px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                     61 65 27 92 77<br />
                                     62 54 19 27 69<br />
                                     63 64 29 97 79<br />
@@ -595,7 +749,7 @@
                                     79 78 13 43 83<br />
                                     80 73 49 48 99
                                 </td>
-                                <td style="text-align:center;vertical-align:top;font-size:13px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                     81 76 44 49 94<br />
                                     82 53 10 28 60<br />
                                     83 59 36 26 86<br />
@@ -775,6 +929,20 @@
 </Modal>
 
 <style>
+    #num1,#num2,#num3,#num4,#num5,#num6{
+	    display:inline-block;margin-top:2px;margin-left:2px;margin-right:2px;background-size:70px;width:70px;height:70px
+    }
+    .a00{background-image:url(number/ball-null.svg)}
+    .a0{background-image:url(number/ball-0.svg)}
+    .a1{background-image:url(number/ball-1.svg)}
+    .a2{background-image:url(number/ball-2.svg)}
+    .a3{background-image:url(number/ball-3.svg)}
+    .a4{background-image:url(number/ball-4.svg)}
+    .a5{background-image:url(number/ball-5.svg)}
+    .a6{background-image:url(number/ball-6.svg)}
+    .a7{background-image:url(number/ball-7.svg)}
+    .a8{background-image:url(number/ball-8.svg)}
+    .a9{background-image:url(number/ball-9.svg)}
     .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
         color: black;
         background-color: #ffbe00;
