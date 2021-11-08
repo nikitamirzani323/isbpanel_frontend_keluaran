@@ -1,6 +1,7 @@
 <script>
     import Modal from "../component/Modal.svelte"
     let listpasaran = [];
+    let listnews = [];
     let listkeluaran = [];
     let listpaito_minggu = [];
     let listpaito_senin = [];
@@ -17,7 +18,50 @@
     let record_jumat = ""
     let record_sabtu = ""
     let myModal = "";
-
+    async function initNews() {
+        const resnews = await fetch("/api/listnews", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+        if (!resnews.ok) {
+            const pasarMessage = `An error has occured: ${resnews.status}`;
+            throw new Error(pasarMessage);
+        } else {
+            const jsonnews = await resnews.json();
+            if (jsonnews.status == 200) {
+                let record = jsonnews.record;
+                let temp = ""
+                if (record != null) {
+                    for (var i = 0; i < record.length; i++) {
+                        // record[i]["news_title"].length
+                        for(var x=0;x<68;x++){
+                            temp += record[i]["news_title"][x]
+                        }
+                        console.log(temp)
+                        listnews = [
+                            ...listnews,
+                            {
+                                // news_title: temp.replace("undefined", ""),
+                                news_title: record[i]["news_title"],
+                                news_descp: record[i]["news_descp"],
+                                news_url: record[i]["news_url"],
+                                news_image: record[i]["news_image"],
+                                
+                            },
+                        ];
+                        temp = ""
+                    }
+                } else {
+                    alert("Error");
+                }
+            } else {
+                alert("Error");
+            }
+        }
+    }
     async function initPasaran() {
         const respasaran = await fetch("/api/listpasaran", {
             method: "POST",
@@ -185,6 +229,7 @@
         initKeluaran(e)
     };
     initPasaran()
+    initNews()
 
     let num1 = "a00"
     let num2 = "a00"
@@ -193,15 +238,8 @@
     let num5 = "a00"
     let num6 = "a00"
     let doing = false;
-    var coin = [
-        new Audio("/sounds/coin.mp3"),
-        new Audio("/sounds/coin.mp3"),
-        new Audio("/sounds/coin.mp3"),
-        new Audio("/sounds/coin.mp3"),
-        new Audio("/sounds/coin.mp3"),
-        new Audio("/sounds/coin.mp3")
-    ]
-    var spin = [
+   
+    let spin = [
         new Audio("/sounds/spin.mp3"),
         new Audio("/sounds/spin.mp3"),
         new Audio("/sounds/spin.mp3"),
@@ -390,7 +428,28 @@
                 </table>
             </div>
         </div>
-        <br>
+        <div class="card" style="background-color:#191c1f;border:none;margin-top:5px;">
+            <div class="card-header"
+                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
+                <h1 style="font-size: 16px;color:white;font-weight:bold;">News</h1>
+            </div>
+            <div
+                class="card-body"
+                style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;overflow-y:scroll;height:600px;">
+                {#each listnews as rec}
+                    <a href="{rec.news_url}" target="_blank" style="color:white;" alt="{rec.news_title}">
+                        <div class="card" style="background-color:#191c1f;border:none;margin:5px;border-bottom:1px solid #e80650;">
+                            <img src="{rec.news_image}" class="card-img-top" alt="...">
+                            <div class="card-body" style="background-color:none;border:none;">
+                            <h1 class="card-title" style="color:white;font-size:18px;">{rec.news_title}</h1>
+                            </div>
+                        </div>
+                    </a>
+                    <br>
+                {/each}
+                
+            </div>
+        </div>
     </div>
     <div class="col-sm-6" style="margin:0px;padding:0px 0px 0px 3px;">
         <div class="card" style="background-color:#ffbe00;border:none;">
