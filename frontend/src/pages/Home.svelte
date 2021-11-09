@@ -428,31 +428,7 @@
                 </table>
             </div>
         </div>
-        <div class="card" style="background-color:#191c1f;border:none;margin-top:5px;">
-            <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
-                <h1 style="font-size: 16px;color:white;font-weight:bold;">News</h1>
-            </div>
-            <div
-                class="card-body"
-                style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;overflow-y:scroll;height:600px;">
-                {#each listnews as rec}
-                    <a href="{rec.news_url}" target="_blank" style="color:white;" alt="{rec.news_title}">
-                        <div class="card" style="background-color:#191c1f;border:none;margin:5px;border-bottom:1px solid #e80650;">
-                            <img src="{rec.news_image}" class="card-img-top" alt="...">
-                            <div class="card-body" style="background-color:none;border:none;">
-                            <h1 class="card-title" style="color:white;font-size:18px;">{rec.news_title}</h1>
-                            </div>
-                        </div>
-                    </a>
-                    <br>
-                {/each}
-                
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6" style="margin:0px;padding:0px 0px 0px 3px;">
-        <div class="card" style="background-color:#ffbe00;border:none;">
+        <div class="card" style="background-color:#ffbe00;border:none;margin-top:5px;">
             <div class="card-header"
                 style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
                 <h1 style="font-size: 16px;color:black;">Angka Main Berdasarkan Hari Dan Pasaran</h1>
@@ -834,6 +810,31 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-sm-6" style="margin:0px;padding:0px 0px 0px 3px;">
+        <div class="card" style="background-color:#191c1f;border:none;">
+            <div class="card-header"
+                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
+                <h1 style="font-size: 16px;color:white;font-weight:bold;">News</h1>
+            </div>
+            <div
+                class="card-body"
+                style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;overflow-y:scroll;height:1860px;">
+                {#each listnews as rec}
+                    <a href="{rec.news_url}" target="_blank" style="color:white;" alt="{rec.news_title}">
+                        <div class="card" style="background-color:#191c1f;border:none;margin:5px;border-bottom:1px solid #e80650;">
+                            <img src="{rec.news_image}" class="card-img-top" alt="...">
+                            <div class="card-body" style="background-color:none;border:none;padding:5px 0px 0px 0px;margin:0px;">
+                                <h1 class="card-title" style="color:white;font-size:18px;">{rec.news_title}</h1>
+                            </div>
+                        </div>
+                    </a>
+                    <br>
+                {/each}
+                
             </div>
         </div>
     </div>
