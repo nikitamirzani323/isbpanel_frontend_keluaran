@@ -1,5 +1,6 @@
 <script>
-    import Modal from "../component/Modal.svelte"
+    import {fade} from "svelte/transition";
+    import Modal from "../component/Modal.svelte";
     import Placeholder from "../component/Placeholder.svelte";
     let listpasaran = [];
     let listnews = [];
@@ -245,7 +246,7 @@
                         </thead>
                         <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
                             {#each listpasaran as rec}
-                                <tr>
+                                <tr in:fade>
                                     <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_name}</td>
                                     <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_datekeluaran}</td>
                                     <td 
@@ -281,7 +282,7 @@
                         </thead>
                         <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
                             {#each listpasaran as rec}
-                            <tr>
+                            <tr in:fade>
                                 <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_name}</td>
                                 <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_dateprediksi}</td>
                                 <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_bbfsprediksi}</td>
@@ -306,7 +307,7 @@
                     class="card-body"
                     style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:500px;">
                     {#each listnews as rec}
-                        <a href="{rec.news_url}" target="_blank" style="color:white;text-decoration:none;" alt="{rec.news_title}">
+                        <a in:fade href="{rec.news_url}" target="_blank" style="color:white;text-decoration:none;" alt="{rec.news_title}">
                             <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
                                 <img src="{rec.news_image}" class="card-img-top" alt="{rec.news_title}">
                                 <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
@@ -784,7 +785,7 @@
                         </thead>
                         <tbody style="border-top:none;">
                             {#each listkeluaran as rec}
-                                <tr style="">
+                                <tr in:fade style="">
                                     <td
                                         NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_datekeluaran}</td>
                                     <td
@@ -799,8 +800,7 @@
                     <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
                 {/if}
             </div>
-            <div
-                class="tab-pane fade"
+            <div class="tab-pane fade"
                 id="pills-paito"
                 role="tabpanel"
                 aria-labelledby="pills-paito-tab">

@@ -1,4 +1,5 @@
 <script>
+  import {fade} from "svelte/transition";
   import Modal from "../component/Modal.svelte";
   import PanelFull from "../component/Panel.svelte";
   import Placeholder from "../component/Placeholder.svelte";
@@ -373,7 +374,7 @@
             </thead>
             <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
               {#each listpasaran as rec}
-                <tr>
+                <tr in:fade>
                   <td
                     NOWRAP
                     style="text-align:left;vertical-align:top;font-size:12px;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">
@@ -411,54 +412,54 @@
       <Placeholder total_placeholder="3" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
     {/if}
     {#if listpasaran != ""}
-    <div class="card" style="background-color:#2c2c2c;border:none;margin-top:5px;">
-      <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-          <h1 style="font-size: 16px;color:white;font-weight:bold;">Prediksi Togel</h1>
-      </div>
-      <div class="card-body"
-        style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #191c1f;">
-        <table class="table table-sm" style="width: 100%;">
-          <thead>
-            <tr>
-              <th
-                width="*"
-                style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">PASARAN</th>
-              <th
-                width="40%"
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">TANGGAL</th>
-              <th
-                width="20%"
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">BBFS</th>
-              <th
-                width="20%"
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">NOMOR</th>
-            </tr>
-          </thead>
-          <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
-            {#each listpasaran as rec}
+      <div class="card" style="background-color:#2c2c2c;border:none;margin-top:5px;">
+        <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
+            <h1 style="font-size: 16px;color:white;font-weight:bold;">Prediksi Togel</h1>
+        </div>
+        <div class="card-body"
+          style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #191c1f;">
+          <table class="table table-sm" style="width: 100%;">
+            <thead>
               <tr>
-                <td NOWRAP
-                  style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">
-                  <a
-                    href={rec.pasaran_url}
-                    target="_blank"
-                    style="color:white;">
-                    {rec.pasaran_name}
-                  </a>
-                </td>
-                <td NOWRAP
-                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_dateprediksi}</td>
-                <td NOWRAP
-                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;">{rec.pasaran_bbfsprediksi}</td
-                >
-                <td NOWRAP
-                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;">{rec.pasaran_nomorprediksi}</td>
+                <th
+                  width="*"
+                  style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">PASARAN</th>
+                <th
+                  width="40%"
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">TANGGAL</th>
+                <th
+                  width="20%"
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">BBFS</th>
+                <th
+                  width="20%"
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">NOMOR</th>
               </tr>
-            {/each}
-          </tbody>
-        </table>
+            </thead>
+            <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
+              {#each listpasaran as rec}
+                <tr in:fade>
+                  <td NOWRAP
+                    style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">
+                    <a
+                      href={rec.pasaran_url}
+                      target="_blank"
+                      style="color:white;">
+                      {rec.pasaran_name}
+                    </a>
+                  </td>
+                  <td NOWRAP
+                    style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_dateprediksi}</td>
+                  <td NOWRAP
+                    style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;">{rec.pasaran_bbfsprediksi}</td
+                  >
+                  <td NOWRAP
+                    style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;">{rec.pasaran_nomorprediksi}</td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     {:else}
       <Placeholder total_placeholder="3" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
     {/if}
@@ -1240,7 +1241,7 @@
         </slot:template>
         <slot:template slot="body">
           {#each listnews as rec}
-            <a href="{rec.news_url}" style="color:white;text-decoration: none;" target="_blank" alt="{rec.news_title}">
+            <a in:fade href="{rec.news_url}" style="color:white;text-decoration: none;" target="_blank" alt="{rec.news_title}">
               <div class="card"
                 style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
                 <img src={rec.news_image} class="card-img-top" alt="{rec.news_title}" />
@@ -1318,7 +1319,7 @@
             </thead>
             <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
               {#each listkeluaran as rec}
-                <tr style="">
+                <tr in:fade style="">
                   <td NOWRAP
                     style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #2c2c2c;">{rec.keluaran_datekeluaran}</td>
                   <td NOWRAP
