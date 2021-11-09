@@ -4,6 +4,7 @@
     export let modal_title = "Title"
     export let modal_modal_css = ""
     export let modal_header_css = ""
+    export let modal_headertitle_css = ""
     export let modal_body_css = ""
     export let modal_footer_css = ""
     export let modal_footer = false
@@ -14,7 +15,7 @@
 	<div class="modal-dialog {modal_size}" style="">
 		<div class="modal-content" style="border-radius: 0px;{modal_modal_css}">
 			<div class="modal-header" style="border:none;{modal_header_css}">
-				<h5 class="modal-title" id="exampleModalLabel">{modal_title}</h5>
+				<h3 class="modal-title" id="exampleModalLabel" style="{modal_headertitle_css}">{modal_title}</h3>
 				<button
 					type="button"
 					class="btn-close btn-close-white"

@@ -20,6 +20,7 @@
     let record_jumat = ""
     let record_sabtu = ""
     let myModal = "";
+    let pasaran_name = "";
     async function initNews() {
         const resnews = await fetch("/api/listnews", {
             method: "POST",
@@ -217,9 +218,10 @@
             }
         }
     }
-    const handlecallresult = (e) => {
+    const handlecallresult = (e,pasaran) => {
         myModal = new bootstrap.Modal(document.getElementById("modalresult"));
         myModal.show();
+        pasaran_name = pasaran;
         initKeluaran(e)
     };
     initPasaran()
@@ -232,7 +234,7 @@
             <div class="card" style="background-color:#2c2c2c;border:none;margin:1px;">
                 <div class="card-header"
                     style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-                    <h1 style="font-size: 13px;color:white;font-weight:bold;">Result Togel</h1>
+                    <h1 style="font-size: 13px;color:white;font-weight:bold;">Keluaran Togel</h1>
                 </div>
                 <div class="card-body"
                     style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;">
@@ -251,7 +253,7 @@
                                     <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_datekeluaran}</td>
                                     <td 
                                         on:click={() => {
-                                            handlecallresult(rec.pasaran_id);
+                                            handlecallresult(rec.pasaran_id,rec.pasaran_name);
                                         }}
                                         NOWRAP style="cursor:pointer;text-decoration:underline;text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_keluaran}</td>
                                 </tr>
@@ -311,7 +313,7 @@
                             <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
                                 <img src="{rec.news_image}" class="card-img-top" alt="{rec.news_title}">
                                 <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
-                                    <h1 class="card-title" style="color:white;font-size:13px;text-decoration:underline;">{rec.news_title}</h1>
+                                    <h2 class="card-title" style="color:white;font-size:13px;text-decoration:underline;">{rec.news_title}</h2>
                                     <p style="font-size:12px;">
                                         {rec.news_descp}
                                       </p>
@@ -729,9 +731,10 @@
 <Modal
     modal_id="modalresult"
     modal_size="modal-dialog-centered"
-    modal_title="LAST RESULT"
+    modal_title="Keluaran Togel : {pasaran_name}"
     modal_modal_css="background-color:#191c1f;border:none;"
     modal_header_css="color:white;font-weight:bold;"
+    modal_headertitle_css="font-size:14px;"
     modal_body_css="height:400px;padding:5px;"
     modal_footer_css="padding:5px;"
     modal_footer={false}

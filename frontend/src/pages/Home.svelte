@@ -6,6 +6,7 @@
   let listpasaran = [];
   let listnews = [];
   let listkeluaran = [];
+  let filterBukuMimpi = [];
   let listpaito_minggu = [];
   let listpaito_senin = [];
   let listpaito_selasa = [];
@@ -21,6 +22,7 @@
   let record_jumat = "";
   let record_sabtu = "";
   let myModal = "";
+  let pasaran_name = "";
   async function initNews() {
     const resnews = await fetch("/api/listnews", {
       method: "POST",
@@ -218,9 +220,10 @@
       }
     }
   }
-  const handlecallresult = (e) => {
+  const handlecallresult = (e,pasaran) => {
     myModal = new bootstrap.Modal(document.getElementById("modalresult"));
     myModal.show();
+    pasaran_name = pasaran;
     initKeluaran(e);
   };
   initPasaran();
@@ -349,7 +352,7 @@
     {#if listpasaran != ""}
       <div class="card" style="background-color:#2c2c2c;border:none;">
         <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-          <h1 style="font-size: 16px;color:white;font-weight:bold;">Result Togel</h1>
+          <h1 style="font-size: 16px;color:white;font-weight:bold;">Keluaran Togel</h1>
         </div>
         <div class="card-body" style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;">
           <table class="table table-sm" style="width: 100%;">
@@ -396,7 +399,7 @@
                     style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_jamjadwal}</td>
                   <td
                     on:click={() => {
-                      handlecallresult(rec.pasaran_id);
+                      handlecallresult(rec.pasaran_id, rec.pasaran_name);
                     }}
                     NOWRAP
                     style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:underline;">
@@ -1227,6 +1230,131 @@
         </div>
       </div>
     </div>
+    <ul class="nav nav-pills" style="margin-top: 5px;">
+      <li class="nav-item">
+        <button
+          class="nav-link active"
+          id="pills-bukumimpi-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-bukumimpi"
+          type="button"
+          role="tab"
+          aria-controls="pills-bukumimpi"
+          aria-selected="true">Buku Mimpi</button>
+      </li>
+      <li class="nav-item">
+        <button
+          class="nav-link"
+          id="pills-bbfs-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-bbfs"
+          type="button"
+          role="tab"
+          aria-controls="pills-bbfs"
+          aria-selected="false">BBFS</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active"
+        id="pills-bukumimpi"
+        role="tabpanel"
+        aria-labelledby="pills-bukumimpi-tab">
+        <PanelFull
+          header={true}
+          footer={false}
+          card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
+          header_style="padding: 0px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #2c2c2c;"
+          body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:765px;">
+          <slot:template slot="header">
+            <ul class="nav nav-pills" style="margin-top: 5px;">
+              <li class="nav-item">
+                <button
+                  class="nav-link active"
+                  id="pills-4D-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-all"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-all"
+                  aria-selected="true">All</button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-3D-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-4D"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-4D"
+                  aria-selected="false">4D</button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-3D-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-3D"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-3D"
+                  aria-selected="false">3D</button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-3D-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-2D"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-2D"
+                  aria-selected="false">2D</button>
+              </li>
+            </ul>
+          </slot:template>
+          <slot:template slot="body">
+           <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active"
+              id="pills-all"
+              role="tabpanel"
+              aria-labelledby="pills-all-tab">
+              <table>
+                <tbody>
+                    {#each filterBukuMimpi as rec}
+                        <tr>
+                            <td
+                                NOWRAP
+                                width="30px"
+                                style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;"
+                                >{rec.bukumimpi_tipe}</td
+                            >
+                            <td
+                                width="*"
+                                style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;"
+                                >{rec.bukumimpi_nama}
+                                <br />
+                                <span
+                                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
+                                    >{rec.bukumimpi_nomor}</span
+                                >
+                            </td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </div>
+           </div>
+          </slot:template>
+      </PanelFull>
+      </div>
+      <div class="tab-pane fade"
+        id="pills-bbfs"
+        role="tabpanel"
+        aria-labelledby="pills-bbfs-tab">
+        
+      </div>
+      
+    </div>
   </div>
   <div class="col-sm-6" style="margin:0px;padding:0px 0px 0px 3px;">
     {#if listnews != ""}
@@ -1237,7 +1365,7 @@
         header_style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;"
         body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:765px;">
         <slot:template slot="header">
-          <h1 style="font-size: 16px;color:white;font-weight:bold;">News</h1>
+          <h1 style="font-size: 16px;color:white;font-weight:bold;">Berita Hari Ini</h1>
         </slot:template>
         <slot:template slot="body">
           {#each listnews as rec}
@@ -1246,7 +1374,7 @@
                 style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
                 <img src={rec.news_image} class="card-img-top" alt="{rec.news_title}" />
                 <div class="card-body" style="background-color:none;border:none;padding:5px 0px 0px 0px;margin:0px;">
-                  <h1 class="card-title" style="color:white;font-size:15px;text-decoration: underline;">{rec.news_title}</h1>
+                  <h2 class="card-title" style="color:white;font-size:15px;text-decoration: underline;">{rec.news_title}</h2>
                   <p style="font-size:13px;">
                     {rec.news_descp}
                   </p>
@@ -1264,9 +1392,10 @@
 <Modal
   modal_id="modalresult"
   modal_size="modal-dialog-centered"
-  modal_title="LAST RESULT"
+  modal_title="Keluaran Togel : {pasaran_name}"
   modal_modal_css="background-color:#191c1f;border:none;"
   modal_header_css="color:white;font-weight:bold;"
+  modal_headertitle_css="font-size:14px;"
   modal_body_css="height:500px;padding:5px;"
   modal_footer_css="padding:5px;"
   modal_footer={false}
