@@ -1,5 +1,6 @@
 <script>
     import Modal from "../component/Modal.svelte"
+    import Placeholder from "../component/Placeholder.svelte";
     let listpasaran = [];
     let listnews = [];
     let listkeluaran = [];
@@ -226,91 +227,104 @@
 
 <div class="row" style="">
     <div class="col-sm-12" style="">
-        <div class="card" style="background-color:#2c2c2c;border:none;margin:1px;">
-            <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-                <h1 style="font-size: 13px;color:white;font-weight:bold;">Result Togel</h1>
+        {#if listpasaran != ""}
+            <div class="card" style="background-color:#2c2c2c;border:none;margin:1px;">
+                <div class="card-header"
+                    style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
+                    <h1 style="font-size: 13px;color:white;font-weight:bold;">Result Togel</h1>
+                </div>
+                <div class="card-body"
+                    style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;">
+                    <table class="table table-sm" style="width: 100%;" >
+                        <thead>
+                            <tr>
+                                <th style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;" width="30%">PASARAN</th>
+                                <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;" width="10%">TANGGAL</th>
+                                <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;" width="*">KELUARAN</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
+                            {#each listpasaran as rec}
+                                <tr>
+                                    <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_name}</td>
+                                    <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_datekeluaran}</td>
+                                    <td 
+                                        on:click={() => {
+                                            handlecallresult(rec.pasaran_id);
+                                        }}
+                                        NOWRAP style="cursor:pointer;text-decoration:underline;text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_keluaran}</td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div
-                class="card-body"
-                style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;">
-                <table class="table table-sm" style="width: 100%;" >
-                    <thead>
-                        <tr>
-                            <th style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="30%">PASARAN</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="10%">TANGGAL</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="*">KELUARAN</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each listpasaran as rec}
+        {:else}
+            <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+        {/if}
+        {#if listpasaran != ""}
+            <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
+                <div class="card-header"
+                    style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
+                    <h1 style="font-size: 14px;color:white;font-weight:bold;">Prediksi Togel</h1>
+                </div>
+                <div class="card-body"
+                    style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #191c1f;">
+                    <table class="table table-sm" style="width: 100%;" >
+                        <thead>
+                            <tr>
+                                <th style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;" width="*">PASARAN</th>
+                                <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;" width="50%">TANGGAL</th>
+                                <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;" width="20%">BBFS</th>
+                                <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;" width="20%">NOMOR</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
+                            {#each listpasaran as rec}
                             <tr>
                                 <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_name}</td>
-                                <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_datekeluaran}</td>
-                                <td 
-                                    on:click={() => {
-                                        handlecallresult(rec.pasaran_id);
-                                    }}
-                                    NOWRAP style="cursor:pointer;text-decoration:underline;text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_keluaran}</td>
+                                <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_dateprediksi}</td>
+                                <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_bbfsprediksi}</td>
+                                <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_nomorprediksi}</td>
                             </tr>
-                        {/each}
-                    </tbody>
-                </table>
+                            {/each}
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
-            <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-                <h1 style="font-size: 14px;color:white;font-weight:bold;">Prediksi Togel</h1>
-            </div>
-            <div
-                class="card-body"
-                style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #191c1f;">
-                <table class="table table-sm" style="width: 100%;" >
-                    <thead>
-                        <tr>
-                            <th style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="*">PASARAN</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="50%">TANGGAL</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="20%">BBFS</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="20%">NOMOR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each listpasaran as rec}
-                        <tr>
-                            <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_name}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_dateprediksi}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_bbfsprediksi}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_nomorprediksi}</td>
-                        </tr>
-                        {/each}
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
-            <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-                <h1 style="font-size: 13px;color:white;font-weight:bold;">News</h1>
-            </div>
-            <div
-                class="card-body"
-                style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:500px;">
-                {#each listnews as rec}
-                    <a href="{rec.news_url}" target="_blank" style="color:white;" alt="{rec.news_title}">
-                        <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
-                            <img src="{rec.news_image}" class="card-img-top" alt="...">
-                            <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
-                                <h1 class="card-title" style="color:white;font-size:12px;">{rec.news_title}</h1>
+        {:else}
+            <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+        {/if}
+        {#if listnews != ""}
+            <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
+                <div class="card-header"
+                    style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
+                    <h1 style="font-size: 13px;color:white;font-weight:bold;">News</h1>
+                </div>
+                <div
+                    class="card-body"
+                    style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:500px;">
+                    {#each listnews as rec}
+                        <a href="{rec.news_url}" target="_blank" style="color:white;text-decoration:none;" alt="{rec.news_title}">
+                            <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
+                                <img src="{rec.news_image}" class="card-img-top" alt="{rec.news_title}">
+                                <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
+                                    <h1 class="card-title" style="color:white;font-size:13px;text-decoration:underline;">{rec.news_title}</h1>
+                                    <p style="font-size:12px;">
+                                        {rec.news_descp}
+                                      </p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                    <br>
-                {/each}
-                
+                        </a>
+                        <br>
+                    {/each}
+                    
+                </div>
             </div>
-        </div>
+        {:else}
+            <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+        {/if}
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <button
@@ -353,12 +367,7 @@
                 role="tabpanel"
                 aria-labelledby="pills-angkamain-tab">
                 <div class="card" style="background-color:#ffbe00;border:none;margin:5px 1px 1px 1px;">
-                    <div class="card-header"
-                        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-                        <h1 style="font-size: 13px;color:black;font-weight:bold;">Angka Main Berdasarkan Hari Dan Pasaran</h1>
-                    </div>
-                    <div
-                        class="card-body"
+                    <div class="card-body"
                         style="margin: 0px;padding:0px;background-color: #ffbe00;">
                         <table class="table table-sm" style="width: 100%;" >
                             <thead>
@@ -423,12 +432,7 @@
                 role="tabpanel"
                 aria-labelledby="pills-shio-tab">
                 <div class="card" style="background-color:#ffbe00;border:none;margin:5px 1px 1px 1px;">
-                    <div class="card-header"
-                        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-                        <h1 style="font-size: 14px;color:black;font-weight:bold;">Table Shio 2021</h1>
-                    </div>
-                    <div
-                        class="card-body"
+                    <div class="card-body"
                         style="margin: 0px;padding:0px;background-color: #ffbe00;">
                         <div class="table-responsive">
                             <table class="table table-sm" style="width: 100%;" >
@@ -595,18 +599,13 @@
                 role="tabpanel"
                 aria-labelledby="pills-tysen-tab">
                 <div class="card" style="background-color:#ffbe00;border:none;margin:5px 1px 1px 1px;">
-                    <div class="card-header"
-                        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-                        <h1 style="font-size: 14px;color:black;font-weight:bold;">Table Tyesen</h1>
-                    </div>
-                    <div
-                        class="card-body"
+                    <div class="card-body"
                         style="margin: 0px;padding:0px;background-color: #ffbe00;">
                         <div class="table-responsive">
                             <table class="table table-sm" style="width: 100%;" >
                                 <tbody>
                                     <tr>
-                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                        <td style="text-align:center;vertical-align:top;font-size:11px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                             01 05 95 12 45<br />
                                             02 16 53 09 35<br />
                                             03 32 52 85 52<br />
@@ -628,7 +627,7 @@
                                             19 27 62 54 12<br />
                                             20 06 72 19 22
                                         </td>
-                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                        <td style="text-align:center;vertical-align:top;font-size:11px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                             21 22 93 55 43<br />
                                             22 21 70 50 20<br />
                                             23 30 84 81 34<br />
@@ -650,7 +649,7 @@
                                             39 44 55 77 05<br />
                                             40 43 76 78 26
                                         </td>
-                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                        <td style="text-align:center;vertical-align:top;font-size:11px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                             41 49 56 76 06<br />
                                             42 45 97 72 47<br />
                                             43 40 71 41 21<br />
@@ -672,7 +671,7 @@
                                             59 83 37 38 87<br />
                                             60 68 32 93 82
                                         </td>
-                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                        <td style="text-align:center;vertical-align:top;font-size:11px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                             61 65 27 92 77<br />
                                             62 54 19 27 69<br />
                                             63 64 29 97 79<br />
@@ -694,7 +693,7 @@
                                             79 78 13 43 83<br />
                                             80 73 49 48 99
                                         </td>
-                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                        <td style="text-align:center;vertical-align:top;font-size:11px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
                                             81 76 44 49 94<br />
                                             82 53 10 28 60<br />
                                             83 59 36 26 86<br />

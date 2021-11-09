@@ -1,5 +1,7 @@
 <script>
   import Modal from "../component/Modal.svelte";
+  import PanelFull from "../component/Panel.svelte";
+  import Placeholder from "../component/Placeholder.svelte";
   let listpasaran = [];
   let listnews = [];
   let listkeluaran = [];
@@ -343,108 +345,99 @@
 
 <div class="row" style="padding-top:10px;padding-bottom:10px;">
   <div class="col-sm-6" style="margin:0px;padding:0px 3px 0px 0px">
-    <div class="card" style="background-color:#2c2c2c;border:none;">
-      <div
-        class="card-header"
-        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-        <h1 style="font-size: 16px;color:white;font-weight:bold;">
-          Result Togel
-        </h1>
-      </div>
-      <div
-        class="card-body"
-        style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;">
-        <table class="table table-sm" style="width: 100%;">
-          <thead>
-            <tr>
-              <th
-                style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="*">PASARAN</th>
-              <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="40%">TANGGAL</th>
-              <th
-                style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="30%">HARI</th>
-              <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="20%">JADWAL</th>
-              <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="20%">KELUARAN</th>
-            </tr>
-          </thead>
-          <tbody>
-            {#each listpasaran as rec}
+    {#if listpasaran != ""}
+      <div class="card" style="background-color:#2c2c2c;border:none;">
+        <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
+          <h1 style="font-size: 16px;color:white;font-weight:bold;">Result Togel</h1>
+        </div>
+        <div class="card-body" style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;">
+          <table class="table table-sm" style="width: 100%;">
+            <thead>
               <tr>
-                <td
-                  NOWRAP
-                  style="text-align:left;vertical-align:top;font-size:12px;color:white;background-color:#2c2c2c;border-bottom:1px solid #191c1f;font-size:12px;">
-                  <a
-                    href={rec.pasaran_url}
-                    target="_blank"
-                    style="color:white;">
-                    {rec.pasaran_name}
-                  </a>
-                </td>
-                <td
-                  NOWRAP
-                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_datekeluaran}</td>
-                <td
-                  NOWRAP
-                  style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_diundi}</td>
-                <td
-                  NOWRAP
-                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_jamjadwal}</td>
-                <td
-                  on:click={() => {
-                    handlecallresult(rec.pasaran_id);
-                  }}
-                  NOWRAP
-                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:underline;">
-                  {rec.pasaran_keluaran}
-                </td>
+                <th
+                  width="*"
+                  style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;" >PASARAN</th>
+                <th
+                  width="40%"
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">TANGGAL</th>
+                <th
+                  width="30%"
+                  style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">HARI</th>
+                <th
+                  width="20%"
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">JADWAL</th>
+                <th
+                  width="20%"
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">KELUARAN</th>
               </tr>
-            {/each}
-          </tbody>
-        </table>
+            </thead>
+            <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
+              {#each listpasaran as rec}
+                <tr>
+                  <td
+                    NOWRAP
+                    style="text-align:left;vertical-align:top;font-size:12px;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">
+                    <a
+                      href={rec.pasaran_url}
+                      target="_blank"
+                      style="color:white;">
+                      {rec.pasaran_name}
+                    </a>
+                  </td>
+                  <td
+                    NOWRAP
+                    style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_datekeluaran}</td>
+                  <td
+                    NOWRAP
+                    style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_diundi}</td>
+                  <td
+                    NOWRAP
+                    style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_jamjadwal}</td>
+                  <td
+                    on:click={() => {
+                      handlecallresult(rec.pasaran_id);
+                    }}
+                    NOWRAP
+                    style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:underline;">
+                    {rec.pasaran_keluaran}
+                  </td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    <div
-      class="card"
-      style="background-color:#2c2c2c;border:none;margin-top:5px;">
-      <div
-        class="card-header"
-        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-        <h1 style="font-size: 16px;color:white;font-weight:bold;">
-          Prediksi Togel
-        </h1>
+    {:else}
+      <Placeholder total_placeholder="3" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+    {/if}
+    {#if listpasaran != ""}
+    <div class="card" style="background-color:#2c2c2c;border:none;margin-top:5px;">
+      <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
+          <h1 style="font-size: 16px;color:white;font-weight:bold;">Prediksi Togel</h1>
       </div>
-      <div
-        class="card-body"
+      <div class="card-body"
         style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #191c1f;">
         <table class="table table-sm" style="width: 100%;">
           <thead>
             <tr>
               <th
-                style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="20%">PASARAN</th>
+                width="*"
+                style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">PASARAN</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="20%">TANGGAL</th>
+                width="40%"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">TANGGAL</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="*">BBFS</th>
+                width="20%"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">BBFS</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
-                width="*">NOMOR</th>
+                width="20%"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;border-bottom:1px solid #2c2c2c;">NOMOR</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
             {#each listpasaran as rec}
               <tr>
-                <td
-                  NOWRAP
+                <td NOWRAP
                   style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">
                   <a
                     href={rec.pasaran_url}
@@ -453,15 +446,12 @@
                     {rec.pasaran_name}
                   </a>
                 </td>
-                <td
-                  NOWRAP
+                <td NOWRAP
                   style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_dateprediksi}</td>
-                <td
-                  NOWRAP
+                <td NOWRAP
                   style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;">{rec.pasaran_bbfsprediksi}</td
                 >
-                <td
-                  NOWRAP
+                <td NOWRAP
                   style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;">{rec.pasaran_nomorprediksi}</td>
               </tr>
             {/each}
@@ -469,6 +459,9 @@
         </table>
       </div>
     </div>
+    {:else}
+      <Placeholder total_placeholder="3" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+    {/if}
     <ul class="nav nav-pills">
       <li class="nav-item">
         <button
@@ -516,24 +509,12 @@
       </li>
     </ul>
     <div class="tab-content" id="nav-tabContent">
-      <div
-        class="tab-pane fade show active"
+      <div class="tab-pane fade show active"
         id="pills-angkamain"
         role="tabpanel"
         aria-labelledby="pills-angkamain-tab">
-        <div
-          class="card"
-          style="background-color:#ffbe00;border:none;margin-top:5px;">
-          <div
-            class="card-header"
-            style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-            <h1 style="font-size: 16px;color:black;">
-              Angka Main Berdasarkan Hari Dan Pasaran
-            </h1>
-          </div>
-          <div
-            class="card-body"
-            style="margin: 0px;padding:0px;background-color: #ffbe00;">
+        <div class="card" style="background-color:#ffbe00;border:none;margin-top:5px;">
+          <div class="card-body" style="margin: 0px;padding:0px;background-color: #ffbe00;">
             <table class="table table-sm" style="width: 100%;">
               <thead>
                 <tr style="background-color: #ffbe00;border-style: none;border-bottom-color: #ffbe00;">
@@ -645,17 +626,13 @@
           </div>
         </div>
       </div>
-      <div
-        class="tab-pane fade"
+      <div class="tab-pane fade"
         id="pills-generator"
         role="tabpanel"
         aria-labelledby="pills-generator-tab">
         <div class="card" style="background-color:#ffbe00;border:none;margin-top:5px;">
-          <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-            <h1 style="font-size: 16px;color:black;">Random Generator</h1>
-          </div>
           <div class="card-body" style="margin: 0px;padding:0px;background-color: #ffbe00;">
-            <center>
+            <center style="margin: 10px 0px 5px 0px;">
               <div id="num1" class={num1} />
               <div id="num2" class={num2} />
               <div id="num3" class={num3} />
@@ -672,21 +649,14 @@
                 class="btn btn-dark btn-sm">Generate</button
               >
             </center>
-            <br />
           </div>
         </div>
       </div>
-      <div
-        class="tab-pane fade"
+      <div class="tab-pane fade"
         id="pills-shio"
         role="tabpanel"
         aria-labelledby="pills-shio-tab">
         <div class="card" style="background-color:#ffbe00;border:none;margin-top:5px;">
-            <div
-              class="card-header"
-              style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-              <h1 style="font-size: 16px;color:black;">Table Shio 2021</h1>
-            </div>
             <div class="card-body" style="margin: 0px;padding:0px;background-color: #ffbe00;">
               <div class="table-responsive">
                 <table class="table table-sm" style="width: 100%;">
@@ -1127,19 +1097,12 @@
             </div>
         </div>
       </div>
-      <div
-        class="tab-pane fade"
+      <div class="tab-pane fade"
         id="pills-teysen"
         role="tabpanel"
         aria-labelledby="pills-teysen-tab">
-        <div
-          class="card"
+        <div class="card"
           style="background-color:#ffbe00;border:none;margin-top:5px;">
-          <div
-            class="card-header"
-            style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-            <h1 style="font-size: 16px;color:black;">Table Tyesen</h1>
-          </div>
           <div class="card-body" style="margin: 0px;padding:0px;background-color: #ffbe00;">
             <div class="table-responsive">
               <table class="table table-sm" style="width: 100%;">
@@ -1263,37 +1226,38 @@
         </div>
       </div>
     </div>
-
-    
-    
   </div>
   <div class="col-sm-6" style="margin:0px;padding:0px 0px 0px 3px;">
-    <div class="card" style="background-color:#191c1f;border:none;">
-      <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-        <h1 style="font-size: 16px;color:white;font-weight:bold;">News</h1>
-      </div>
-      <div class="card-body" style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:850px;">
-        {#each listnews as rec}
-          <a
-            href={rec.news_url}
-            target="_blank"
-            style="color:white;"
-            alt={rec.news_title}>
-            <div
-              class="card"
-              style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
-              <img src={rec.news_image} class="card-img-top" alt="..." />
-              <div class="card-body" style="background-color:none;border:none;padding:5px 0px 0px 0px;margin:0px;">
-                <h1 class="card-title" style="color:white;font-size:18px;">
-                  {rec.news_title}
-                </h1>
+    {#if listnews != ""}
+    <PanelFull
+        header={true}
+        footer={false}
+        card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
+        header_style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;"
+        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:765px;">
+        <slot:template slot="header">
+          <h1 style="font-size: 16px;color:white;font-weight:bold;">News</h1>
+        </slot:template>
+        <slot:template slot="body">
+          {#each listnews as rec}
+            <a href="{rec.news_url}" style="color:white;text-decoration: none;" target="_blank" alt="{rec.news_title}">
+              <div class="card"
+                style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
+                <img src={rec.news_image} class="card-img-top" alt="{rec.news_title}" />
+                <div class="card-body" style="background-color:none;border:none;padding:5px 0px 0px 0px;margin:0px;">
+                  <h1 class="card-title" style="color:white;font-size:15px;text-decoration: underline;">{rec.news_title}</h1>
+                  <p style="font-size:13px;">
+                    {rec.news_descp}
+                  </p>
+                </div>
               </div>
-            </div>
-          </a>
-          <br />
-        {/each}
-      </div>
-    </div>
+            </a>
+          {/each}
+        </slot:template>
+    </PanelFull>
+    {:else}
+      <Placeholder total_placeholder="10" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+    {/if}
   </div>
 </div>
 <Modal
@@ -1553,4 +1517,11 @@
   .nav-pills .nav-link {
     border-radius: 0.1rem;
   }
+  button {
+      margin: 0;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: inherit;
+  }
+ 
 </style>

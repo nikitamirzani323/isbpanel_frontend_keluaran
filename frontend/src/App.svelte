@@ -1,5 +1,6 @@
 <script>
 	import Navbar from "./component/Navbar.svelte"
+	import Footer from "./component/Footer.svelte"
 	import Home from "./pages/Home.svelte"
 	import Homemobile from "./pages/Homemobile.svelte"
 
@@ -21,6 +22,7 @@
 		<Home />
 	</div>
 	<div class="clearfix"></div><br>
+	<Footer />
 </div>
 <style>
 	.container {
@@ -33,4 +35,5 @@
 	<div class="container" style="margin-top: 60px;">
 		<Homemobile />
 	</div>
+	<Footer />
 {/if}
