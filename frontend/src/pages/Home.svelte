@@ -1266,7 +1266,7 @@
   modal_title="LAST RESULT"
   modal_modal_css="background-color:#191c1f;border:none;"
   modal_header_css="color:white;font-weight:bold;"
-  modal_body_css="height:500px;overflow-y: scroll;padding:5px;"
+  modal_body_css="height:500px;padding:5px;"
   modal_footer_css="padding:5px;"
   modal_footer={false}
   header_flag={true}>
@@ -1300,148 +1300,95 @@
   </slot:template>
   <slot:template slot="body">
     <div class="tab-content" id="nav-tabContent">
-      <div
-        class="tab-pane fade show active"
+      <div class="tab-pane fade show active"
         id="pills-all"
         role="tabpanel"
-        aria-labelledby="pills-all-tab"
-      >
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr style="background-color: #191c1f;border-bottom-color: #e80650;">
-              <th
-                width="*"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >DATE</th
-              >
-              <th
-                width="40%"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >PERIODE</th
-              >
-              <th
-                width="40%"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >NOMOR</th
-              >
-            </tr>
-          </thead>
-          <tbody style="border-top:none;">
-            {#each listkeluaran as rec}
-              <tr style="">
-                <td
-                  NOWRAP
-                  style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;"
-                  >{rec.keluaran_datekeluaran}</td
-                >
-                <td
-                  NOWRAP
-                  style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #191c1f;"
-                  >{rec.keluaran_periode}</td
-                >
-                <td
-                  NOWRAP
-                  style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;border-bottom:1px solid #191c1f;"
-                  >{rec.keluaran_nomor}</td
-                >
+        aria-labelledby="pills-all-tab">
+        {#if listkeluaran != ""}
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr style="background-color: #191c1f;border-bottom-color: #e80650;">
+                <th width="*"
+                  style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">DATE</th>
+                <th width="40%"
+                  style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">PERIODE</th>
+                <th width="40%"
+                  style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">NOMOR</th>
               </tr>
-            {/each}
-          </tbody>
-        </table>
+            </thead>
+            <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
+              {#each listkeluaran as rec}
+                <tr style="">
+                  <td NOWRAP
+                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #2c2c2c;">{rec.keluaran_datekeluaran}</td>
+                  <td NOWRAP
+                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;border-bottom:1px solid #2c2c2c;">{rec.keluaran_periode}</td>
+                  <td NOWRAP
+                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;border-bottom:1px solid #2c2c2c;">{rec.keluaran_nomor}</td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        {:else}
+          <Placeholder total_placeholder="5" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+        {/if}
       </div>
-      <div
-        class="tab-pane fade"
+      <div class="tab-pane fade"
         id="pills-paito"
         role="tabpanel"
-        aria-labelledby="pills-paito-tab"
-      >
+        aria-labelledby="pills-paito-tab">
         <table class="table table-striped table-sm">
           <thead>
             <tr style="background-color: #191c1f;border-bottom-color: #e80650;">
-              <th
-                width="*"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >MINGGU</th
-              >
-              <th
-                width="25%"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >SENIN</th
-              >
-              <th
-                width="25%"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >SELASA</th
-              >
-              <th
-                width="25%"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >RABU</th
-              >
-              <th
-                width="25%"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >KAMIS</th
-              >
-              <th
-                width="25%"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >JUMAT</th
-              >
-              <th
-                width="25%"
-                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;"
-                >SABTU</th
-              >
+              <th width="*"
+                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">MINGGU</th>
+              <th width="25%"
+                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">SENIN</th>
+              <th width="25%"
+                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">SELASA</th>
+              <th width="25%"
+                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">RABU</th>
+              <th width="25%"
+                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">KAMIS</th>
+              <th width="25%"
+                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">JUMAT</th>
+              <th width="25%"
+                style="text-align: center;vertical-align:top;font-size: 14px;color:#ffffff;">SABTU</th>
             </tr>
           </thead>
-          <tbody style="border-top:none;">
+          <tbody style="border-top:none;border-bottom-color: #2c2c2c;">
             <tr style="">
-              <td
-                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;"
-              >
+              <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                 {#each listpaito_minggu as rec}
                   {rec.keluaran_nomor} <br />
                 {/each}
               </td>
-              <td
-                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;"
-              >
+              <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                 {#each listpaito_senin as rec}
                   {rec.keluaran_nomor} <br />
                 {/each}
               </td>
-              <td
-                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;"
-              >
+              <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                 {#each listpaito_selasa as rec}
                   {rec.keluaran_nomor} <br />
                 {/each}
               </td>
-              <td
-                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;"
-              >
+              <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                 {#each listpaito_rabu as rec}
                   {rec.keluaran_nomor} <br />
                 {/each}
               </td>
-              <td
-                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;"
-              >
+              <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                 {#each listpaito_kamis as rec}
                   {rec.keluaran_nomor} <br />
                 {/each}
               </td>
-              <td
-                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;"
-              >
+              <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                 {#each listpaito_jumat as rec}
                   {rec.keluaran_nomor} <br />
                 {/each}
               </td>
-              <td
-                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;"
-              >
+              <td style="text-align: center;vertical-align:top;font-size: 13px;color:#ffbe00;">
                 {#each listpaito_sabtu as rec}
                   {rec.keluaran_nomor} <br />
                 {/each}

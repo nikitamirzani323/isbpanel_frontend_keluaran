@@ -763,38 +763,41 @@
     </slot:template>
     <slot:template slot="body">
         <div class="tab-content" id="nav-tabContent">
-            <div
-                class="tab-pane fade show active"
+            <div class="tab-pane fade show active"
                 id="pills-all"
                 role="tabpanel"
                 aria-labelledby="pills-all-tab">
-                <table class="table table-striped table-sm">
-                    <thead>
-                        <tr style="background-color: #191c1f;border-bottom-color: #e80650;" >
-                            <th
-                                width="*"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">DATE</th>
-                            <th
-                                width="40%"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">PERIODE</th>
-                            <th
-                                width="40%"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">NOMOR</th>
-                        </tr>
-                    </thead>
-                    <tbody style="border-top:none;">
-                        {#each listkeluaran as rec}
-                            <tr style="">
-                                <td
-                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_datekeluaran}</td>
-                                <td
-                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_periode}</td>
-                                <td
-                                    NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;border-bottom:1px solid #191c1f;">{rec.keluaran_nomor}</td>
+                {#if listkeluaran != ""}
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr style="background-color: #191c1f;border-bottom-color: #e80650;" >
+                                <th
+                                    width="*"
+                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">DATE</th>
+                                <th
+                                    width="40%"
+                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">PERIODE</th>
+                                <th
+                                    width="40%"
+                                    style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">NOMOR</th>
                             </tr>
-                        {/each}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody style="border-top:none;">
+                            {#each listkeluaran as rec}
+                                <tr style="">
+                                    <td
+                                        NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_datekeluaran}</td>
+                                    <td
+                                        NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffffff;border-bottom:1px solid #191c1f;">{rec.keluaran_periode}</td>
+                                    <td
+                                        NOWRAP style="text-align: center;vertical-align:top;font-size: 12px;color:#ffbe00;border-bottom:1px solid #191c1f;">{rec.keluaran_nomor}</td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                {:else}
+                    <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
             </div>
             <div
                 class="tab-pane fade"
@@ -806,25 +809,25 @@
                         <tr style="background-color: #191c1f;border-bottom-color: #e80650;" >
                             <th
                                 width="*"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">MINGGU</th>
+                                style="text-align: center;vertical-align:top;font-size: 11px;color:#ffffff;">MINGGU</th>
                             <th
                                 width="25%"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">SENIN</th>
+                                style="text-align: center;vertical-align:top;font-size: 11px;color:#ffffff;">SENIN</th>
                             <th
                                 width="25%"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">SELASA</th>
+                                style="text-align: center;vertical-align:top;font-size: 11px;color:#ffffff;">SELASA</th>
                             <th
                                 width="25%"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">RABU</th>
+                                style="text-align: center;vertical-align:top;font-size: 11px;color:#ffffff;">RABU</th>
                             <th
                                 width="25%"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">KAMIS</th>
+                                style="text-align: center;vertical-align:top;font-size: 11px;color:#ffffff;">KAMIS</th>
                             <th
                                 width="25%"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">JUMAT</th>
+                                style="text-align: center;vertical-align:top;font-size: 11px;color:#ffffff;">JUMAT</th>
                             <th
                                 width="25%"
-                                style="text-align: center;vertical-align:top;font-size: 13px;color:#ffffff;">SABTU</th>
+                                style="text-align: center;vertical-align:top;font-size: 11px;color:#ffffff;">SABTU</th>
                         </tr>
                     </thead>
                     <tbody style="border-top:none;">

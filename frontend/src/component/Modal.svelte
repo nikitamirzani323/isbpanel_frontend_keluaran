@@ -1,5 +1,5 @@
 <script>
-    export let modal_id = "modal_1"
+    export let modal_id = "modal_1" 
     export let modal_size = "modal-dialog-centered"
     export let modal_title = "Title"
     export let modal_modal_css = ""
@@ -24,7 +24,7 @@
 			{#if header_flag}
 				<slot name="header" />
 			{/if}
-			<div class="modal-body" style="{modal_body_css}">
+			<div class="modal-body" id="stream" data-simplebar style="{modal_body_css}">
 				<slot name="body" />
 			</div>
             {#if modal_footer}
@@ -35,3 +35,15 @@
 		</div>
 	</div>
 </div>
+<style>
+    #stream::-webkit-scrollbar {
+        width: 0.3em;
+    }
+    #stream::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+    #stream::-webkit-scrollbar-thumb {
+        background-color: #505768;
+        outline: 1px solid slategrey;
+    }
+</style>
