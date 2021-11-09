@@ -731,7 +731,7 @@
     modal_title="LAST RESULT"
     modal_modal_css="background-color:#191c1f;border:none;"
     modal_header_css="color:white;font-weight:bold;"
-    modal_body_css="height:400px;overflow-y: scroll;padding:5px;"
+    modal_body_css="height:400px;padding:5px;"
     modal_footer_css="padding:5px;"
     modal_footer={false}
     header_flag={true}>
