@@ -226,62 +226,62 @@
 
 <div class="row" style="">
     <div class="col-sm-12" style="">
-        <div class="card" style="background-color:#191c1f;border:none;margin:1px;">
+        <div class="card" style="background-color:#2c2c2c;border:none;margin:1px;">
             <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
+                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
                 <h1 style="font-size: 13px;color:white;font-weight:bold;">Result Togel</h1>
             </div>
             <div
                 class="card-body"
-                style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;">
+                style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;">
                 <table class="table table-sm" style="width: 100%;" >
                     <thead>
                         <tr>
-                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="30%">PASARAN</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="10%">TANGGAL</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="*">KELUARAN</th>
+                            <th style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="30%">PASARAN</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="10%">TANGGAL</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="*">KELUARAN</th>
                         </tr>
                     </thead>
                     <tbody>
                         {#each listpasaran as rec}
                             <tr>
-                                <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_name}</td>
-                                <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_datekeluaran}</td>
+                                <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_name}</td>
+                                <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_datekeluaran}</td>
                                 <td 
                                     on:click={() => {
                                         handlecallresult(rec.pasaran_id);
                                     }}
-                                    NOWRAP style="cursor:pointer;text-decoration:underline;text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_keluaran}</td>
+                                    NOWRAP style="cursor:pointer;text-decoration:underline;text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_keluaran}</td>
                             </tr>
                         {/each}
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="card" style="background-color:#191c1f;border:none;margin:1px;">
+        <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
             <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
+                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
                 <h1 style="font-size: 14px;color:white;font-weight:bold;">Prediksi Togel</h1>
             </div>
             <div
                 class="card-body"
-                style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;">
+                style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #191c1f;">
                 <table class="table table-sm" style="width: 100%;" >
                     <thead>
                         <tr>
-                            <th style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="*">PASARAN</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="50%">TANGGAL</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="20%">BBFS</th>
-                            <th style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;" width="20%">NOMOR</th>
+                            <th style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="*">PASARAN</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="50%">TANGGAL</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="20%">BBFS</th>
+                            <th style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;" width="20%">NOMOR</th>
                         </tr>
                     </thead>
                     <tbody>
                         {#each listpasaran as rec}
                         <tr>
-                            <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_name}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_dateprediksi}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_bbfsprediksi}</td>
-                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_nomorprediksi}</td>
+                            <td NOWRAP style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_name}</td>
+                            <td NOWRAP style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_dateprediksi}</td>
+                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_bbfsprediksi}</td>
+                            <td NOWRAP style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_nomorprediksi}</td>
                         </tr>
                         {/each}
                         
@@ -289,17 +289,17 @@
                 </table>
             </div>
         </div>
-        <div class="card" style="background-color:#191c1f;border:none;margin:1px;">
+        <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
             <div class="card-header"
-                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
+                style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
                 <h1 style="font-size: 13px;color:white;font-weight:bold;">News</h1>
             </div>
             <div
                 class="card-body"
-                style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;overflow-y:scroll;height:500px;">
+                style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:500px;">
                 {#each listnews as rec}
                     <a href="{rec.news_url}" target="_blank" style="color:white;" alt="{rec.news_title}">
-                        <div class="card" style="background-color:#191c1f;border:none;margin:5px;border-bottom:1px solid #e80650;">
+                        <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
                             <img src="{rec.news_image}" class="card-img-top" alt="...">
                             <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
                                 <h1 class="card-title" style="color:white;font-size:12px;">{rec.news_title}</h1>
@@ -352,7 +352,7 @@
                 id="pills-angkamain"
                 role="tabpanel"
                 aria-labelledby="pills-angkamain-tab">
-                <div class="card" style="background-color:#ffbe00;border:none;margin:1px;">
+                <div class="card" style="background-color:#ffbe00;border:none;margin:5px 1px 1px 1px;">
                     <div class="card-header"
                         style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
                         <h1 style="font-size: 13px;color:black;font-weight:bold;">Angka Main Berdasarkan Hari Dan Pasaran</h1>
@@ -422,7 +422,7 @@
                 id="pills-shio"
                 role="tabpanel"
                 aria-labelledby="pills-shio-tab">
-                <div class="card" style="background-color:#ffbe00;border:none;margin:1px;">
+                <div class="card" style="background-color:#ffbe00;border:none;margin:5px 1px 1px 1px;">
                     <div class="card-header"
                         style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
                         <h1 style="font-size: 14px;color:black;font-weight:bold;">Table Shio 2021</h1>
@@ -594,143 +594,136 @@
                 id="pills-tysen"
                 role="tabpanel"
                 aria-labelledby="pills-tysen-tab">
-                <div
-                    class="card-body"
-                    style="margin: 0px;padding:0px;background-color: #ffbe00;">
-                    <div class="card" style="background-color:#ffbe00;border:none;margin:5px;">
-                        <div class="card-header"
-                            style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
-                            <h1 style="font-size: 14px;color:black;font-weight:bold;">Table Tyesen</h1>
-                        </div>
-                        <div
-                            class="card-body"
-                            style="margin: 0px;padding:0px;background-color: #ffbe00;">
-                            <div class="table-responsive">
-                                <table class="table table-sm" style="width: 100%;" >
-                                    <tbody>
-                                        <tr>
-                                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
-                                                01 05 95 12 45<br />
-                                                02 16 53 09 35<br />
-                                                03 32 52 85 52<br />
-                                                04 12 65 05 15<br />
-                                                05 01 89 10 39<br />
-                                                06 20 91 51 41<br />
-                                                07 24 58 57 08<br />
-                                                08 17 57 04 07<br />
-                                                09 33 87 88 37<br />
-                                                10 18 82 03 32<br />
-                                                11 15 77 02 27<br />
-                                                12 04 69 17 19<br />
-                                                13 14 79 07 29<br />
-                                                14 13 96 08 46<br />
-                                                15 11 54 00 04<br />
-                                                16 02 74 15 24<br />
-                                                17 08 88 13 38<br />
-                                                18 10 78 01 28<br />
-                                                19 27 62 54 12<br />
-                                                20 06 72 19 22
-                                            </td>
-                                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
-                                                21 22 93 55 43<br />
-                                                22 21 70 50 20<br />
-                                                23 30 84 81 34<br />
-                                                24 07 66 14 16<br />
-                                                25 35 85 82 03<br />
-                                                26 31 90 80 40<br />
-                                                27 19 61 06 11<br />
-                                                28 29 69 56 18<br />
-                                                29 28 63 53 13<br />
-                                                30 23 99 58 49<br />
-                                                31 26 94 59 44<br />
-                                                32 03 60 18 10<br />
-                                                33 09 86 16 36<br />
-                                                34 36 73 89 23<br />
-                                                35 25 75 52 02<br />
-                                                36 34 83 87 33<br />
-                                                37 38 59 83 09<br />
-                                                38 37 67 84 17<br />
-                                                39 44 55 77 05<br />
-                                                40 43 76 78 26
-                                            </td>
-                                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
-                                                41 49 56 76 06<br />
-                                                42 45 97 72 47<br />
-                                                43 40 71 41 21<br />
-                                                44 39 81 86 31<br />
-                                                45 42 51 75 01<br />
-                                                46 48 64 73 14<br />
-                                                47 50 92 21 42<br />
-                                                48 46 00 79 50<br />
-                                                49 41 80 70 30<br />
-                                                50 47 98 74 48<br />
-                                                51 55 45 22 95<br />
-                                                52 66 03 99 85<br />
-                                                53 82 02 35 75<br />
-                                                54 62 15 95 65<br />
-                                                55 51 39 20 89<br />
-                                                56 70 41 71 91<br />
-                                                57 74 08 47 58<br />
-                                                58 67 07 94 57<br />
-                                                59 83 37 38 87<br />
-                                                60 68 32 93 82
-                                            </td>
-                                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
-                                                61 65 27 92 77<br />
-                                                62 54 19 27 69<br />
-                                                63 64 29 97 79<br />
-                                                64 63 46 98 96<br />
-                                                65 61 04 90 54<br />
-                                                66 52 24 25 74<br />
-                                                67 58 38 23 88<br />
-                                                68 60 28 91 78<br />
-                                                69 77 12 44 62<br />
-                                                70 56 22 29 72<br />
-                                                71 72 43 45 93<br />
-                                                72 71 20 40 70<br />
-                                                73 80 34 31 84<br />
-                                                74 57 16 24 66<br />
-                                                75 85 35 32 53<br />
-                                                76 81 40 30 90<br />
-                                                77 69 11 96 61<br />
-                                                78 79 18 46 68<br />
-                                                79 78 13 43 83<br />
-                                                80 73 49 48 99
-                                            </td>
-                                            <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
-                                                81 76 44 49 94<br />
-                                                82 53 10 28 60<br />
-                                                83 59 36 26 86<br />
-                                                84 86 23 39 73<br />
-                                                85 75 26 42 52<br />
-                                                86 84 33 37 83<br />
-                                                87 88 09 33 59<br />
-                                                88 87 17 34 64<br />
-                                                89 94 05 67 55<br />
-                                                90 93 26 68 76<br />
-                                                91 99 06 66 56<br />
-                                                92 95 47 62 97<br />
-                                                93 90 21 61 71<br />
-                                                94 89 31 36 81<br />
-                                                95 92 01 65 51<br />
-                                                96 98 14 63 64<br />
-                                                97 00 42 11 92<br />
-                                                98 86 50 69 00<br />
-                                                99 91 30 60 80<br />
-                                                00 97 48 64 98
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="card" style="background-color:#ffbe00;border:none;margin:5px 1px 1px 1px;">
+                    <div class="card-header"
+                        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#ffbe00;border-bottom:1px solid #ffbe00;">
+                        <h1 style="font-size: 14px;color:black;font-weight:bold;">Table Tyesen</h1>
+                    </div>
+                    <div
+                        class="card-body"
+                        style="margin: 0px;padding:0px;background-color: #ffbe00;">
+                        <div class="table-responsive">
+                            <table class="table table-sm" style="width: 100%;" >
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                            01 05 95 12 45<br />
+                                            02 16 53 09 35<br />
+                                            03 32 52 85 52<br />
+                                            04 12 65 05 15<br />
+                                            05 01 89 10 39<br />
+                                            06 20 91 51 41<br />
+                                            07 24 58 57 08<br />
+                                            08 17 57 04 07<br />
+                                            09 33 87 88 37<br />
+                                            10 18 82 03 32<br />
+                                            11 15 77 02 27<br />
+                                            12 04 69 17 19<br />
+                                            13 14 79 07 29<br />
+                                            14 13 96 08 46<br />
+                                            15 11 54 00 04<br />
+                                            16 02 74 15 24<br />
+                                            17 08 88 13 38<br />
+                                            18 10 78 01 28<br />
+                                            19 27 62 54 12<br />
+                                            20 06 72 19 22
+                                        </td>
+                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                            21 22 93 55 43<br />
+                                            22 21 70 50 20<br />
+                                            23 30 84 81 34<br />
+                                            24 07 66 14 16<br />
+                                            25 35 85 82 03<br />
+                                            26 31 90 80 40<br />
+                                            27 19 61 06 11<br />
+                                            28 29 69 56 18<br />
+                                            29 28 63 53 13<br />
+                                            30 23 99 58 49<br />
+                                            31 26 94 59 44<br />
+                                            32 03 60 18 10<br />
+                                            33 09 86 16 36<br />
+                                            34 36 73 89 23<br />
+                                            35 25 75 52 02<br />
+                                            36 34 83 87 33<br />
+                                            37 38 59 83 09<br />
+                                            38 37 67 84 17<br />
+                                            39 44 55 77 05<br />
+                                            40 43 76 78 26
+                                        </td>
+                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                            41 49 56 76 06<br />
+                                            42 45 97 72 47<br />
+                                            43 40 71 41 21<br />
+                                            44 39 81 86 31<br />
+                                            45 42 51 75 01<br />
+                                            46 48 64 73 14<br />
+                                            47 50 92 21 42<br />
+                                            48 46 00 79 50<br />
+                                            49 41 80 70 30<br />
+                                            50 47 98 74 48<br />
+                                            51 55 45 22 95<br />
+                                            52 66 03 99 85<br />
+                                            53 82 02 35 75<br />
+                                            54 62 15 95 65<br />
+                                            55 51 39 20 89<br />
+                                            56 70 41 71 91<br />
+                                            57 74 08 47 58<br />
+                                            58 67 07 94 57<br />
+                                            59 83 37 38 87<br />
+                                            60 68 32 93 82
+                                        </td>
+                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                            61 65 27 92 77<br />
+                                            62 54 19 27 69<br />
+                                            63 64 29 97 79<br />
+                                            64 63 46 98 96<br />
+                                            65 61 04 90 54<br />
+                                            66 52 24 25 74<br />
+                                            67 58 38 23 88<br />
+                                            68 60 28 91 78<br />
+                                            69 77 12 44 62<br />
+                                            70 56 22 29 72<br />
+                                            71 72 43 45 93<br />
+                                            72 71 20 40 70<br />
+                                            73 80 34 31 84<br />
+                                            74 57 16 24 66<br />
+                                            75 85 35 32 53<br />
+                                            76 81 40 30 90<br />
+                                            77 69 11 96 61<br />
+                                            78 79 18 46 68<br />
+                                            79 78 13 43 83<br />
+                                            80 73 49 48 99
+                                        </td>
+                                        <td style="text-align:center;vertical-align:top;font-size:12px;background:#ffbe00;color:black;border-bottom:1px solid #ffbe00;" nowrap>
+                                            81 76 44 49 94<br />
+                                            82 53 10 28 60<br />
+                                            83 59 36 26 86<br />
+                                            84 86 23 39 73<br />
+                                            85 75 26 42 52<br />
+                                            86 84 33 37 83<br />
+                                            87 88 09 33 59<br />
+                                            88 87 17 34 64<br />
+                                            89 94 05 67 55<br />
+                                            90 93 26 68 76<br />
+                                            91 99 06 66 56<br />
+                                            92 95 47 62 97<br />
+                                            93 90 21 61 71<br />
+                                            94 89 31 36 81<br />
+                                            95 92 01 65 51<br />
+                                            96 98 14 63 64<br />
+                                            97 00 42 11 92<br />
+                                            98 86 50 69 00<br />
+                                            99 91 30 60 80<br />
+                                            00 97 48 64 98
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        
-        
+        </div>   
     </div>
 </div>
 <Modal

@@ -343,34 +343,34 @@
 
 <div class="row" style="padding-top:10px;padding-bottom:10px;">
   <div class="col-sm-6" style="margin:0px;padding:0px 3px 0px 0px">
-    <div class="card" style="background-color:#191c1f;border:none;">
+    <div class="card" style="background-color:#2c2c2c;border:none;">
       <div
         class="card-header"
-        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#1d1d1d;border-bottom:2px solid #e80650;">
+        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
         <h1 style="font-size: 16px;color:white;font-weight:bold;">
           Result Togel
         </h1>
       </div>
       <div
         class="card-body"
-        style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;">
+        style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;">
         <table class="table table-sm" style="width: 100%;">
           <thead>
             <tr>
               <th
-                style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="*">PASARAN</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="40%">TANGGAL</th>
               <th
-                style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="30%">HARI</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="20%">JADWAL</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="20%">KELUARAN</th>
             </tr>
           </thead>
@@ -379,7 +379,7 @@
               <tr>
                 <td
                   NOWRAP
-                  style="text-align:left;vertical-align:top;font-size:12px;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">
+                  style="text-align:left;vertical-align:top;font-size:12px;color:white;background-color:#2c2c2c;border-bottom:1px solid #191c1f;font-size:12px;">
                   <a
                     href={rec.pasaran_url}
                     target="_blank"
@@ -389,19 +389,19 @@
                 </td>
                 <td
                   NOWRAP
-                  style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_datekeluaran}</td>
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_datekeluaran}</td>
                 <td
                   NOWRAP
-                  style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_diundi}</td>
+                  style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_diundi}</td>
                 <td
                   NOWRAP
-                  style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_jamjadwal}</td>
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_jamjadwal}</td>
                 <td
                   on:click={() => {
                     handlecallresult(rec.pasaran_id);
                   }}
                   NOWRAP
-                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:underline;">
+                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:underline;">
                   {rec.pasaran_keluaran}
                 </td>
               </tr>
@@ -412,31 +412,31 @@
     </div>
     <div
       class="card"
-      style="background-color:#191c1f;border:none;margin-top:5px;">
+      style="background-color:#2c2c2c;border:none;margin-top:5px;">
       <div
         class="card-header"
-        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:2px solid #e80650;">
+        style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
         <h1 style="font-size: 16px;color:white;font-weight:bold;">
           Prediksi Togel
         </h1>
       </div>
       <div
         class="card-body"
-        style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;">
+        style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #191c1f;">
         <table class="table table-sm" style="width: 100%;">
           <thead>
             <tr>
               <th
-                style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="20%">PASARAN</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="20%">TANGGAL</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="*">BBFS</th>
               <th
-                style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;font-size: 13px;"
+                style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;font-size: 13px;"
                 width="*">NOMOR</th>
             </tr>
           </thead>
@@ -445,7 +445,7 @@
               <tr>
                 <td
                   NOWRAP
-                  style="text-align:left;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">
+                  style="text-align:left;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">
                   <a
                     href={rec.pasaran_url}
                     target="_blank"
@@ -455,14 +455,14 @@
                 </td>
                 <td
                   NOWRAP
-                  style="text-align:center;vertical-align:top;color:white;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;">{rec.pasaran_dateprediksi}</td>
+                  style="text-align:center;vertical-align:top;color:white;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;">{rec.pasaran_dateprediksi}</td>
                 <td
                   NOWRAP
-                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;font-weight:bold;">{rec.pasaran_bbfsprediksi}</td
+                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;">{rec.pasaran_bbfsprediksi}</td
                 >
                 <td
                   NOWRAP
-                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#191c1f;border-bottom:1px solid #191c1f;font-size:12px;font-weight:bold;">{rec.pasaran_nomorprediksi}</td>
+                  style="text-align:center;vertical-align:top;color:#ffbe00;background-color:#2c2c2c;border-bottom:1px solid #2c2c2c;font-size:12px;font-weight:bold;">{rec.pasaran_nomorprediksi}</td>
               </tr>
             {/each}
           </tbody>
@@ -1269,10 +1269,10 @@
   </div>
   <div class="col-sm-6" style="margin:0px;padding:0px 0px 0px 3px;">
     <div class="card" style="background-color:#191c1f;border:none;">
-      <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:2px solid #e80650;">
+      <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
         <h1 style="font-size: 16px;color:white;font-weight:bold;">News</h1>
       </div>
-      <div class="card-body" style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;overflow-y:scroll;height:850px;">
+      <div class="card-body" style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:850px;">
         {#each listnews as rec}
           <a
             href={rec.news_url}
@@ -1281,7 +1281,7 @@
             alt={rec.news_title}>
             <div
               class="card"
-              style="background-color:#191c1f;border:none;margin:5px;border-bottom:1px solid #e80650;">
+              style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
               <img src={rec.news_image} class="card-img-top" alt="..." />
               <div class="card-body" style="background-color:none;border:none;padding:5px 0px 0px 0px;margin:0px;">
                 <h1 class="card-title" style="color:white;font-size:18px;">
