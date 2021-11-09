@@ -33,18 +33,11 @@
             const jsonnews = await resnews.json();
             if (jsonnews.status == 200) {
                 let record = jsonnews.record;
-                let temp = ""
                 if (record != null) {
                     for (var i = 0; i < record.length; i++) {
-                        // record[i]["news_title"].length
-                        for(var x=0;x<68;x++){
-                            temp += record[i]["news_title"][x]
-                        }
-                        console.log(temp)
                         listnews = [
                             ...listnews,
                             {
-                                // news_title: temp.replace("undefined", ""),
                                 news_title: record[i]["news_title"],
                                 news_descp: record[i]["news_descp"],
                                 news_url: record[i]["news_url"],
@@ -52,7 +45,6 @@
                                 
                             },
                         ];
-                        temp = ""
                     }
                 } else {
                     alert("Error");

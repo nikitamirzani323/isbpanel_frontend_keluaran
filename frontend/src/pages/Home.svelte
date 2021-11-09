@@ -33,14 +33,8 @@
       const jsonnews = await resnews.json();
       if (jsonnews.status == 200) {
         let record = jsonnews.record;
-        let temp = "";
         if (record != null) {
           for (var i = 0; i < record.length; i++) {
-            // record[i]["news_title"].length
-            for (var x = 0; x < 68; x++) {
-              temp += record[i]["news_title"][x];
-            }
-            console.log(temp);
             listnews = [
               ...listnews,
               {
@@ -51,7 +45,6 @@
                 news_image: record[i]["news_image"],
               },
             ];
-            temp = "";
           }
         } else {
           alert("Error");
@@ -248,7 +241,6 @@
     new Audio("/sounds/spin.mp3"),
   ];
   const generator = () => {
-    console.log(doing);
     if (doing) {
       return null;
     }
@@ -344,7 +336,6 @@
   function testWin() {
     doing = false;
   }
-
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
@@ -1278,7 +1269,7 @@
   </div>
   <div class="col-sm-6" style="margin:0px;padding:0px 0px 0px 3px;">
     <div class="card" style="background-color:#191c1f;border:none;">
-      <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:1px solid #e80650;">
+      <div class="card-header" style="padding: 10px 0px 5px 10px;margin:0px;background-color:#191c1f;border-bottom:2px solid #e80650;">
         <h1 style="font-size: 16px;color:white;font-weight:bold;">News</h1>
       </div>
       <div class="card-body" style="margin: 0px;padding:0px;background-color: #191c1f;border-bottom:1px solid #191c1f;overflow-y:scroll;height:850px;">
