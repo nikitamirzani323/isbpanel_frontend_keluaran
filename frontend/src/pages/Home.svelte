@@ -1,11 +1,13 @@
 <script>
   import {fade} from "svelte/transition";
+  import { flip } from 'svelte/animate';
   import Modal from "../component/Modal.svelte";
   import PanelFull from "../component/Panel.svelte";
   import Placeholder from "../component/Placeholder.svelte";
   let listpasaran = [];
   let listnews = [];
   let listkeluaran = [];
+  let listbukumimpi = [];
   let filterBukuMimpi = [];
   let listpaito_minggu = [];
   let listpaito_senin = [];
@@ -23,6 +25,45 @@
   let record_sabtu = "";
   let myModal = "";
   let pasaran_name = "";
+  let searchbukumimpi = "";
+  let tipe_bukumimpi = "";
+  async function bukumimpi() {
+    const resnews = await fetch("/api/listbukumimpi", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        bukumimpi_tipe:tipe_bukumimpi,
+        bukumimpi_nama:searchbukumimpi.toLowerCase(),
+      }),
+    });
+    if (!resnews.ok) {
+      const pasarMessage = `An error has occured: ${resnews.status}`;
+      throw new Error(pasarMessage);
+    } else {
+      const jsonnews = await resnews.json();
+      if (jsonnews.status == 200) {
+        let record = jsonnews.record;
+        if (record != null) {
+          for (var i = 0; i < record.length; i++) {
+            listbukumimpi = [
+              ...listbukumimpi,
+              {
+                bukumimpi_type: record[i]["bukumimpi_type"],
+                bukumimpi_name: record[i]["bukumimpi_name"],
+                bukumimpi_nomor: record[i]["bukumimpi_nomor"],
+              },
+            ];
+          }
+        } else {
+          alert("Error");
+        }
+      } else {
+        alert("Error");
+      }
+    }
+  }
   async function initNews() {
     const resnews = await fetch("/api/listnews", {
       method: "POST",
@@ -228,6 +269,7 @@
   };
   initPasaran();
   initNews();
+  bukumimpi();
 
   let num1 = "a00";
   let num2 = "a00";
@@ -345,6 +387,48 @@
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+  const handleClickBukuMimpi = (e) => {
+    filterBukuMimpi = [];
+    listbukumimpi = [];
+    switch (e) {
+        case "ALL":
+            tipe_bukumimpi = "";
+            searchbukumimpi = "";
+            break;
+        case "4D":
+            tipe_bukumimpi = "4D";
+            searchbukumimpi = "";
+            break;
+        case "3D":
+            tipe_bukumimpi = "3D";
+            searchbukumimpi = "";
+            break;
+        case "2D":
+            tipe_bukumimpi = "2D";
+            searchbukumimpi = "";
+            break;
+    }
+    bukumimpi();
+  }
+  const handleKeyboardbukumimpi_checkenter = (e) => {
+      let keyCode = e.which || e.keyCode;
+      if (keyCode === 13) {
+          filterBukuMimpi = [];
+          listbukumimpi = [];
+          bukumimpi();
+      }  
+  };
+  $: {
+        if (searchbukumimpi) {
+            filterBukuMimpi = listbukumimpi.filter((item) =>
+                item.bukumimpi_name
+                    .toLowerCase()
+                    .includes(searchbukumimpi.toLowerCase())
+            );
+        } else {
+            filterBukuMimpi = [...listbukumimpi];
+        }
+    }
 </script>
 
 <div class="row" style="padding-top:10px;padding-bottom:10px;">
@@ -1264,13 +1348,16 @@
           footer={false}
           card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
           header_style="padding: 0px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #2c2c2c;"
-          body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:765px;">
+          body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:500px;">
           <slot:template slot="header">
             <ul class="nav nav-pills" style="margin-top: 5px;">
               <li class="nav-item">
                 <button
+                  on:click={() => {
+                      handleClickBukuMimpi("ALL");
+                  }}
                   class="nav-link active"
-                  id="pills-4D-tab"
+                  id="pills-all-tab"
                   data-bs-toggle="pill"
                   data-bs-target="#pills-all"
                   type="button"
@@ -1280,8 +1367,11 @@
               </li>
               <li class="nav-item">
                 <button
+                  on:click={() => {
+                      handleClickBukuMimpi("4D");
+                  }}
                   class="nav-link"
-                  id="pills-3D-tab"
+                  id="pills-4D-tab"
                   data-bs-toggle="pill"
                   data-bs-target="#pills-4D"
                   type="button"
@@ -1291,6 +1381,9 @@
               </li>
               <li class="nav-item">
                 <button
+                  on:click={() => {
+                      handleClickBukuMimpi("3D");
+                  }}
                   class="nav-link"
                   id="pills-3D-tab"
                   data-bs-toggle="pill"
@@ -1302,8 +1395,11 @@
               </li>
               <li class="nav-item">
                 <button
+                  on:click={() => {
+                      handleClickBukuMimpi("2D");
+                  }}
                   class="nav-link"
-                  id="pills-3D-tab"
+                  id="pills-2D-tab"
                   data-bs-toggle="pill"
                   data-bs-target="#pills-2D"
                   type="button"
@@ -1312,38 +1408,125 @@
                   aria-selected="false">2D</button>
               </li>
             </ul>
+            <input
+              bind:value={searchbukumimpi}
+              on:keypress={handleKeyboardbukumimpi_checkenter}
+              style="border-radius: none;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: 14px; "
+              placeholder="Ketik apa yang telah kamu impikan"
+              class="form-control"
+              type="text"/>
           </slot:template>
           <slot:template slot="body">
-           <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active"
-              id="pills-all"
-              role="tabpanel"
-              aria-labelledby="pills-all-tab">
-              <table>
-                <tbody>
-                    {#each filterBukuMimpi as rec}
-                        <tr>
-                            <td
-                                NOWRAP
-                                width="30px"
-                                style="text-align:center;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#fc0;"
-                                >{rec.bukumimpi_tipe}</td
-                            >
-                            <td
-                                width="*"
-                                style="text-align:left;vertical-align:top;font-size:{modal_table_fontsize_bukumimpi_header};color:#8b8989;"
-                                >{rec.bukumimpi_nama}
-                                <br />
-                                <span
-                                    style="color:#fc0;font-size:{modal_table_fontsize_bukumimpi_header};"
-                                    >{rec.bukumimpi_nomor}</span
-                                >
-                            </td>
-                        </tr>
-                    {/each}
-                </tbody>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active"
+                id="pills-all"
+                role="tabpanel"
+                aria-labelledby="pills-all-tab">
+                {#if filterBukuMimpi != ""}
+                  <table>
+                    <tbody>
+                        {#each filterBukuMimpi as rec}
+                            <tr in:fade>
+                                <td
+                                    NOWRAP
+                                    width="30px"
+                                    style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;">{rec.bukumimpi_type}</td>
+                                <td
+                                    width="*"
+                                    style="text-align:left;vertical-align:top;font-size:14px;color:white;">{rec.bukumimpi_name}
+                                    <br />
+                                    <span style="color:#ffbe00;font-size:14px;">{rec.bukumimpi_nomor}</span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                  </table>
+                {:else}
+                  <Placeholder total_placeholder="5" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
+              </div>
+              <div class="tab-pane fade"
+                id="pills-4D"
+                role="tabpanel"
+                aria-labelledby="pills-4D-tab">
+                {#if filterBukuMimpi != ""}
+                  <table>
+                    <tbody>
+                        {#each filterBukuMimpi as rec}
+                            <tr in:fade>
+                                <td
+                                    NOWRAP
+                                    width="30px"
+                                    style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;">{rec.bukumimpi_type}</td>
+                                <td
+                                    width="*"
+                                    style="text-align:left;vertical-align:top;font-size:14px;color:white;">{rec.bukumimpi_name}
+                                    <br />
+                                    <span style="color:#ffbe00;font-size:14px;">{rec.bukumimpi_nomor}</span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                  </table>
+                {:else}
+                  <Placeholder total_placeholder="5" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
+              </div>
+              <div class="tab-pane fade"
+                id="pills-3D"
+                role="tabpanel"
+                aria-labelledby="pills-3D-tab">
+                {#if filterBukuMimpi != ""}
+                  <table>
+                    <tbody>
+                        {#each filterBukuMimpi as rec}
+                            <tr in:fade>
+                                <td
+                                    NOWRAP
+                                    width="30px"
+                                    style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;">{rec.bukumimpi_type}</td>
+                                <td
+                                    width="*"
+                                    style="text-align:left;vertical-align:top;font-size:14px;color:white;">{rec.bukumimpi_name}
+                                    <br />
+                                    <span style="color:#ffbe00;font-size:14px;">{rec.bukumimpi_nomor}</span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                  </table>
+                {:else}
+                  <Placeholder total_placeholder="5" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
+              </div>
+              <div class="tab-pane fade"
+                id="pills-2D"
+                role="tabpanel"
+                aria-labelledby="pills-2D-tab">
+                {#if filterBukuMimpi != ""}
+                  <table>
+                    <tbody>
+                        {#each filterBukuMimpi as rec}
+                            <tr in:fade>
+                                <td
+                                    NOWRAP
+                                    width="30px"
+                                    style="text-align:center;vertical-align:top;font-size:14px;color:#fc0;">{rec.bukumimpi_type}</td>
+                                <td
+                                    width="*"
+                                    style="text-align:left;vertical-align:top;font-size:14px;color:white;">{rec.bukumimpi_name}
+                                    <br />
+                                    <span style="color:#ffbe00;font-size:14px;">{rec.bukumimpi_nomor}</span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                  </table>
+                {:else}
+                  <Placeholder total_placeholder="5" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
+              </div>
             </div>
-           </div>
           </slot:template>
       </PanelFull>
       </div>
@@ -1351,7 +1534,7 @@
         id="pills-bbfs"
         role="tabpanel"
         aria-labelledby="pills-bbfs-tab">
-        
+        <Placeholder total_placeholder="7" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
       </div>
       
     </div>
@@ -1363,7 +1546,7 @@
         footer={false}
         card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
         header_style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;"
-        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:765px;">
+        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:1410px;">
         <slot:template slot="header">
           <h1 style="font-size: 16px;color:white;font-weight:bold;">Berita Hari Ini</h1>
         </slot:template>
@@ -1385,7 +1568,7 @@
         </slot:template>
     </PanelFull>
     {:else}
-      <Placeholder total_placeholder="10" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+      <Placeholder total_placeholder="20" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
     {/if}
   </div>
 </div>

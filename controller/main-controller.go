@@ -28,6 +28,10 @@ type responsekeluaran struct {
 type clientlistkeluaran struct {
 	Pasaran string `json:"pasaran"`
 }
+type clientbukumimpi struct {
+	Bukumimpi_tipe string `json:"bukumimpi_tipe"`
+	Bukumimpi_nama string `json:"bukumimpi_nama"`
+}
 
 const PATH string = config.PATH_API
 
@@ -101,6 +105,36 @@ func ListNews(c *fiber.Ctx) error {
 			"client_company": "",
 		}).
 		Post(PATH + "api/news")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response)
+	return c.JSON(fiber.Map{
+		"status": http.StatusOK,
+		"record": result.Record,
+		"time":   time.Since(render_page).String(),
+	})
+}
+func ListBukumimpi(c *fiber.Ctx) error {
+	client := new(clientbukumimpi)
+	render_page := time.Now()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	axios := resty.New()
+	resp, err := axios.R().
+		SetResult(response{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"tipe": client.Bukumimpi_tipe,
+			"nama": client.Bukumimpi_nama,
+		}).
+		Post(PATH + "api/bukumimpi")
 	if err != nil {
 		log.Println(err.Error())
 	}
