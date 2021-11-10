@@ -440,6 +440,8 @@
   let flag = true
   let found = true
   function formbbfs_add() {
+    flag = true;
+    found = true;
 		listbbfs_4d = [];
 		listbbfs_3d = [];
 		listbbfs_2d = [];
@@ -447,16 +449,13 @@
 		generate3D = [];
 		generate2D = [];
 		data_bbfs = [];
-		
-		
-		data_bbfs = [];
 		if (nomor_bbfs == "") {
 			flag = false;
 			alert("Nomor Tidak Boleh Kosong");
 		}
-		if (nomor_bbfs.length < 4 || nomor_bbfs.length > 6) {
+		if (nomor_bbfs.length < 4 || nomor_bbfs.length > 9) {
 			flag = false;
-			alert("Nomor 4 - 6 Digit");
+			alert("Nomor 4 - 9 Digit");
 		}
     if(flag){
       for (let a = 0; a < nomor_bbfs.length; a++) {
@@ -1658,16 +1657,16 @@
           header={true}
           footer={false}
           card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
-          header_style="padding: 0px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #2c2c2c;"
-          body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:500px;">
+          header_style="padding: 5px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #2c2c2c;"
+          body_style="margin: 0px 0px 30px 0px;padding:10px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:500px;">
           <slot:template slot="header">
             <input
               bind:value={nomor_bbfs}
               on:keypress={handleKeyboardbukumimpi_checkenter}
               style="border-radius: none;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: 14px; "
-              placeholder="Nomor (4-6 Digit)"
+              placeholder="Nomor (4-9 Digit)"
               minlength=4
-              maxlength=6
+              maxlength=9
               class="form-control"
               type="text"/>
           <div class="d-grid" style="margin-top: 10px;">
@@ -1681,21 +1680,21 @@
           </slot:template>
           <slot:template slot="body">
             {#if listbbfs_4d != ""}
-              <span in:fade style="color:white;font-size:14px;">4D : </span>
+              <span in:fade style="color:white;font-size:14px;">4D : {listbbfs_4d.length}</span>
               {#each listbbfs_4d as rec}
                 <span in:fade style="color:#ffbe00;font-size:14px;">{rec.nomor}*</span>
               {/each}
             {/if}
             {#if listbbfs_3d != ""}
               <br>
-              <span in:fade style="color:white;font-size:14px;">3D : </span>
+              <span in:fade style="color:white;font-size:14px;">3D : {listbbfs_3d.length}</span>
               {#each listbbfs_3d as rec}
                 <span in:fade style="color:#ffbe00;font-size:14px;">{rec.nomor}*</span>
               {/each}
             {/if}
             {#if listbbfs_2d != ""}
               <br>
-              <span in:fade style="color:white;font-size:14px;">2D : </span>
+              <span in:fade style="color:white;font-size:14px;">2D : {listbbfs_2d.length}</span>
               {#each listbbfs_2d as rec}
                 <span in:fade style="color:#ffbe00;font-size:14px;">{rec.nomor}*</span>
               {/each}
