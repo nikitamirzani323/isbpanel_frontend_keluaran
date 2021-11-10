@@ -8,6 +8,9 @@
   let listnews = [];
   let listkeluaran = [];
   let listbukumimpi = [];
+  let listbbfs_4d = [];
+  let listbbfs_3d = [];
+  let listbbfs_2d = [];
   let filterBukuMimpi = [];
   let listpaito_minggu = [];
   let listpaito_senin = [];
@@ -27,6 +30,7 @@
   let pasaran_name = "";
   let searchbukumimpi = "";
   let tipe_bukumimpi = "";
+  let nomor_bbfs = "";
   async function bukumimpi() {
     const resnews = await fetch("/api/listbukumimpi", {
       method: "POST",
@@ -428,7 +432,123 @@
         } else {
             filterBukuMimpi = [...listbukumimpi];
         }
+  }
+  let data_bbfs = [];
+  let generate4D = [];
+  let generate3D = [];
+  let generate2D = [];
+  let flag = true
+  let found = true
+  function formbbfs_add() {
+		listbbfs_4d = [];
+		listbbfs_3d = [];
+		listbbfs_2d = [];
+		generate4D = [];
+		generate3D = [];
+		generate2D = [];
+		data_bbfs = [];
+		
+		
+		data_bbfs = [];
+		if (nomor_bbfs == "") {
+			flag = false;
+			alert("Nomor Tidak Boleh Kosong");
+		}
+		if (nomor_bbfs.length < 4 || nomor_bbfs.length > 6) {
+			flag = false;
+			alert("Nomor 4 - 6 Digit");
+		}
+    if(flag){
+      for (let a = 0; a < nomor_bbfs.length; a++) {
+        for (let b = 0; b < nomor_bbfs.length; b++) {
+          for (let c = 0; c < nomor_bbfs.length; c++) {
+            for (let d = 0; d < nomor_bbfs.length; d++) {
+              let dat = nomor_bbfs[a] +nomor_bbfs[b] +nomor_bbfs[c] +nomor_bbfs[d];
+              if (generate4D.length > 0) {
+                for (let x = 0;x < generate4D.length;x++) {
+                  if (dat == generate4D[x]) {
+                    found = true;
+                  }
+                }
+                if (found == false) {
+                  generate4D.push(dat);
+                }
+              } else {
+                generate4D.push(dat);
+              }
+              found = false;
+              dat = "";
+            }
+          }
+        }
+      }
+      for (let x = 0; x < generate4D.length; x++) {
+        listbbfs_4d = [
+            ...listbbfs_4d,
+            {
+              nomor: generate4D[x],
+            },
+          ];
+      }
+      for (let a = 0; a < nomor_bbfs.length; a++) {
+        for (let b = 0; b < nomor_bbfs.length; b++) {
+          for (let c = 0; c < nomor_bbfs.length; c++) {
+            let dat = nomor_bbfs[a] +nomor_bbfs[b] +nomor_bbfs[c];
+            if (generate3D.length > 0) {
+              for (let x = 0;x < generate3D.length;x++) {
+                if (dat == generate3D[x]) {
+                  found = true;
+                }
+              }
+              if (found == false) {
+                generate3D.push(dat);
+              }
+            } else {
+              generate3D.push(dat);
+            }
+            found = false;
+            dat = "";
+          }
+        }
+      }
+      for (let x = 0; x < generate3D.length; x++) {
+        listbbfs_3d = [
+            ...listbbfs_3d,
+            {
+              nomor: generate3D[x],
+            },
+          ];
+      }
+      for (let a = 0; a < nomor_bbfs.length; a++) {
+        for (let b = 0; b < nomor_bbfs.length; b++) {
+          let dat = nomor_bbfs[a] +nomor_bbfs[b] ;
+          if (generate2D.length > 0) {
+            for (let x = 0;x < generate2D.length;x++) {
+              if (dat == generate2D[x]) {
+                found = true;
+              }
+            }
+            if (found == false) {
+              generate2D.push(dat);
+            }
+          } else {
+            generate2D.push(dat);
+          }
+          found = false;
+          dat = "";
+        }
+      }
+      for (let x = 0; x < generate2D.length; x++) {
+        listbbfs_2d = [
+            ...listbbfs_2d,
+            {
+              nomor: generate2D[x],
+            },
+          ];
+      }
     }
+    
+  }
 </script>
 
 <div class="row" style="padding-top:10px;padding-bottom:10px;">
@@ -1528,13 +1648,60 @@
               </div>
             </div>
           </slot:template>
-      </PanelFull>
+        </PanelFull>
       </div>
       <div class="tab-pane fade"
         id="pills-bbfs"
         role="tabpanel"
         aria-labelledby="pills-bbfs-tab">
-        <Placeholder total_placeholder="7" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+        <PanelFull
+          header={true}
+          footer={false}
+          card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
+          header_style="padding: 0px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #2c2c2c;"
+          body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:500px;">
+          <slot:template slot="header">
+            <input
+              bind:value={nomor_bbfs}
+              on:keypress={handleKeyboardbukumimpi_checkenter}
+              style="border-radius: none;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: 14px; "
+              placeholder="Nomor (4-6 Digit)"
+              minlength=4
+              maxlength=6
+              class="form-control"
+              type="text"/>
+          <div class="d-grid" style="margin-top: 10px;">
+            <button
+              on:click={() => {
+                formbbfs_add();
+              }}
+            
+              type="button" class="btn btn-warning btn-sm">Generate</button>
+          </div>
+          </slot:template>
+          <slot:template slot="body">
+            {#if listbbfs_4d != ""}
+              <span in:fade style="color:white;font-size:14px;">4D : </span>
+              {#each listbbfs_4d as rec}
+                <span in:fade style="color:#ffbe00;font-size:14px;">{rec.nomor}*</span>
+              {/each}
+            {/if}
+            {#if listbbfs_3d != ""}
+              <br>
+              <span in:fade style="color:white;font-size:14px;">3D : </span>
+              {#each listbbfs_3d as rec}
+                <span in:fade style="color:#ffbe00;font-size:14px;">{rec.nomor}*</span>
+              {/each}
+            {/if}
+            {#if listbbfs_2d != ""}
+              <br>
+              <span in:fade style="color:white;font-size:14px;">2D : </span>
+              {#each listbbfs_2d as rec}
+                <span in:fade style="color:#ffbe00;font-size:14px;">{rec.nomor}*</span>
+              {/each}
+            {/if}
+          </slot:template>
+        </PanelFull>
       </div>
       
     </div>

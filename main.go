@@ -8,5 +8,5 @@ import (
 
 func main() {
 	app := router.Init()
-	log.Fatal(app.Listen(":80"))
+	log.Fatal(app.Listen(":7073"))
 }
