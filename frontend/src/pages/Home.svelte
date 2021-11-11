@@ -1531,7 +1531,7 @@
               bind:value={searchbukumimpi}
               on:keypress={handleKeyboardbukumimpi_checkenter}
               style="border-radius: none;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: 14px; "
-              placeholder="Ketik apa yang telah kamu impikan"
+              placeholder="Ketik apa yang telah kamu mimpikan"
               class="form-control"
               type="text"/>
           </slot:template>
