@@ -72,6 +72,7 @@
     }
   }
   async function tafsirmimpi() {
+    listtafsirmimpi = [];
     const resnews = await fetch("/api/listtafsirmimpi", {
       method: "POST",
       headers: {
@@ -488,7 +489,11 @@
           filterTafsirMimpi = listtafsirmimpi.filter((item) =>
                 item.tafsirmimpi_mimpi
                     .toLowerCase()
+                    .includes(searchtafsirmimpi.toLowerCase())||
+                item.tafsirmimpi_artimimpi
+                    .toLowerCase()
                     .includes(searchtafsirmimpi.toLowerCase())
+                    
             );
         } else {
           filterTafsirMimpi = [...listtafsirmimpi];
