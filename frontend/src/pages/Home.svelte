@@ -8,10 +8,12 @@
   let listnews = [];
   let listkeluaran = [];
   let listbukumimpi = [];
+  let listtafsirmimpi = [];
   let listbbfs_4d = [];
   let listbbfs_3d = [];
   let listbbfs_2d = [];
   let filterBukuMimpi = [];
+  let filterTafsirMimpi = [];
   let listpaito_minggu = [];
   let listpaito_senin = [];
   let listpaito_selasa = [];
@@ -29,6 +31,7 @@
   let myModal = "";
   let pasaran_name = "";
   let searchbukumimpi = "";
+  let searchtafsirmimpi = "";
   let tipe_bukumimpi = "";
   let nomor_bbfs = "";
   async function bukumimpi() {
@@ -57,6 +60,44 @@
                 bukumimpi_type: record[i]["bukumimpi_type"],
                 bukumimpi_name: record[i]["bukumimpi_name"],
                 bukumimpi_nomor: record[i]["bukumimpi_nomor"],
+              },
+            ];
+          }
+        } else {
+          alert("Error");
+        }
+      } else {
+        alert("Error");
+      }
+    }
+  }
+  async function tafsirmimpi() {
+    const resnews = await fetch("/api/listtafsirmimpi", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tafsirmimpi_search:searchtafsirmimpi.toLowerCase(),
+      }),
+    });
+    if (!resnews.ok) {
+      const pasarMessage = `An error has occured: ${resnews.status}`;
+      throw new Error(pasarMessage);
+    } else {
+      const jsonnews = await resnews.json();
+      if (jsonnews.status == 200) {
+        let record = jsonnews.record;
+        if (record != null) {
+          for (var i = 0; i < record.length; i++) {
+            listtafsirmimpi = [
+              ...listtafsirmimpi,
+              {
+                tafsirmimpi_mimpi: record[i]["tafsirmimpi_mimpi"],
+                tafsirmimpi_artimimpi: record[i]["tafsirmimpi_artimimpi"],
+                tafsirmimpi_angka2d: record[i]["tafsirmimpi_angka2d"],
+                tafsirmimpi_angka3d: record[i]["tafsirmimpi_angka3d"],
+                tafsirmimpi_angka4d: record[i]["tafsirmimpi_angka4d"],
               },
             ];
           }
@@ -274,6 +315,7 @@
   initPasaran();
   initNews();
   bukumimpi();
+  
 
   let num1 = "a00";
   let num2 = "a00";
@@ -422,6 +464,15 @@
           bukumimpi();
       }  
   };
+  const handleKeyboardtafsirmimpi_checkenter = (e) => {
+      let keyCode = e.which || e.keyCode;
+      if (keyCode === 13) {
+          filterTafsirMimpi = [];
+          listtafsirmimpi = [];
+          tafsirmimpi();
+      }  
+  };
+  
   $: {
         if (searchbukumimpi) {
             filterBukuMimpi = listbukumimpi.filter((item) =>
@@ -431,6 +482,16 @@
             );
         } else {
             filterBukuMimpi = [...listbukumimpi];
+        }
+
+        if (searchtafsirmimpi) {
+          filterTafsirMimpi = listtafsirmimpi.filter((item) =>
+                item.tafsirmimpi_mimpi
+                    .toLowerCase()
+                    .includes(searchtafsirmimpi.toLowerCase())
+            );
+        } else {
+          filterTafsirMimpi = [...listtafsirmimpi];
         }
   }
   let data_bbfs = [];
@@ -1447,6 +1508,20 @@
       </li>
       <li class="nav-item">
         <button
+          on:click={() => {
+            tafsirmimpi();
+          }}
+          class="nav-link"
+          id="pills-tafsirmimpi-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-tafsirmimpi"
+          type="button"
+          role="tab"
+          aria-controls="pills-tafsirmimpi"
+          aria-selected="false">Tafsir Mimpi</button>
+      </li>
+      <li class="nav-item">
+        <button
           class="nav-link"
           id="pills-bbfs-tab"
           data-bs-toggle="pill"
@@ -1646,6 +1721,52 @@
                 {/if}
               </div>
             </div>
+          </slot:template>
+        </PanelFull>
+      </div>
+      <div class="tab-pane fade"
+        id="pills-tafsirmimpi"
+        role="tabpanel"
+        aria-labelledby="pills-bbfs-tab">
+        <PanelFull
+          header={true}
+          footer={false}
+          card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
+          header_style="padding: 5px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #2c2c2c;"
+          body_style="margin: 0px 0px 30px 0px;padding:10px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:500px;">
+          <slot:template slot="header">
+            <input
+              bind:value={searchtafsirmimpi}
+              on:keypress={handleKeyboardtafsirmimpi_checkenter}
+              style="border-radius: none;border: none; background: rgb(48, 48, 48) none repeat scroll 0% 0%; color: white; font-size: 14px; "
+              placeholder="Ketik apa yang telah kamu mimpikan"
+              class="form-control"
+              type="text"/>
+          </slot:template>
+          <slot:template slot="body">
+            {#if filterTafsirMimpi != ""}
+              <table>
+                <tbody>
+                    {#each filterTafsirMimpi as rec}
+                        <tr in:fade>
+                            <td
+                                width="*"
+                                style="text-align:left;vertical-align:top;font-size:14px;color:white;">{rec.tafsirmimpi_mimpi}
+                                <br />
+                                <p>
+                                  {rec.tafsirmimpi_artimimpi}<br>
+                                  2D : <span style="color:#ffbe00;font-size:14px;">{rec.tafsirmimpi_angka2d}</span><br>
+                                  3D : <span style="color:#ffbe00;font-size:14px;">{rec.tafsirmimpi_angka3d}</span><br>
+                                  4D : <span style="color:#ffbe00;font-size:14px;">{rec.tafsirmimpi_angka4d}</span><br><br>
+                                </p>
+                            </td>
+                        </tr>
+                    {/each}
+                </tbody>
+              </table>
+            {:else}
+              <Placeholder total_placeholder="5" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+            {/if}
           </slot:template>
         </PanelFull>
       </div>

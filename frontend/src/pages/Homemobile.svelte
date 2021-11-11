@@ -303,7 +303,7 @@
             <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
                 <div class="card-header"
                     style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-                    <h1 style="font-size: 13px;color:white;font-weight:bold;">News</h1>
+                    <h1 style="font-size: 13px;color:white;font-weight:bold;">Berita Hari Ini</h1>
                 </div>
                 <div
                     class="card-body"
