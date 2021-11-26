@@ -6,6 +6,7 @@
   import Placeholder from "../component/Placeholder.svelte";
   let listpasaran = [];
   let listnews = [];
+  let listnewsmovie = [];
   let listkeluaran = [];
   let listbukumimpi = [];
   let listtafsirmimpi = [];
@@ -129,6 +130,42 @@
           for (var i = 0; i < record.length; i++) {
             listnews = [
               ...listnews,
+              {
+                // news_title: temp.replace("undefined", ""),
+                news_title: record[i]["news_title"],
+                news_descp: record[i]["news_descp"],
+                news_url: record[i]["news_url"],
+                news_image: record[i]["news_image"],
+              },
+            ];
+          }
+        } else {
+          alert("Error");
+        }
+      } else {
+        alert("Error");
+      }
+    }
+  }
+  async function initNewsMovie() {
+    const resnews = await fetch("/api/listmovietrailer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+    if (!resnews.ok) {
+      const pasarMessage = `An error has occured: ${resnews.status}`;
+      throw new Error(pasarMessage);
+    } else {
+      const jsonnews = await resnews.json();
+      if (jsonnews.status == 200) {
+        let record = jsonnews.record;
+        if (record != null) {
+          for (var i = 0; i < record.length; i++) {
+            listnewsmovie = [
+              ...listnewsmovie,
               {
                 // news_title: temp.replace("undefined", ""),
                 news_title: record[i]["news_title"],
@@ -315,6 +352,7 @@
   };
   initPasaran();
   initNews();
+  initNewsMovie();
   bukumimpi();
   
 
@@ -1838,12 +1876,42 @@
         footer={false}
         card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
         header_style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;"
-        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:1410px;">
+        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:600px;">
         <slot:template slot="header">
           <h1 style="font-size: 16px;color:white;font-weight:bold;">Berita Hari Ini</h1>
         </slot:template>
         <slot:template slot="body">
           {#each listnews as rec}
+            <a in:fade href="{rec.news_url}" style="color:white;text-decoration: none;" target="_blank" alt="{rec.news_title}">
+              <div class="card"
+                style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
+                <img src={rec.news_image} class="card-img-top" alt="{rec.news_title}" />
+                <div class="card-body" style="background-color:none;border:none;padding:5px 0px 0px 0px;margin:0px;">
+                  <h2 class="card-title" style="color:white;font-size:15px;text-decoration: underline;">{rec.news_title}</h2>
+                  <p style="font-size:13px;">
+                    {rec.news_descp}
+                  </p>
+                </div>
+              </div>
+            </a>
+          {/each}
+        </slot:template>
+    </PanelFull>
+    {:else}
+      <Placeholder total_placeholder="20" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+    {/if}
+    {#if listnewsmovie != ""}
+    <PanelFull
+        header={true}
+        footer={false}
+        card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;margin-top:5px;"
+        header_style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;"
+        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:770px;">
+        <slot:template slot="header">
+          <h1 style="font-size: 16px;color:white;font-weight:bold;">Movie Minggu Ini</h1>
+        </slot:template>
+        <slot:template slot="body">
+          {#each listnewsmovie as rec}
             <a in:fade href="{rec.news_url}" style="color:white;text-decoration: none;" target="_blank" alt="{rec.news_title}">
               <div class="card"
                 style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
