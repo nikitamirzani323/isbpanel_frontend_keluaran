@@ -4,6 +4,7 @@
     import Placeholder from "../component/Placeholder.svelte";
     let listpasaran = [];
     let listnews = [];
+    let listnewsmovie = [];
     let listkeluaran = [];
     let listpaito_minggu = [];
     let listpaito_senin = [];
@@ -40,6 +41,42 @@
                     for (var i = 0; i < record.length; i++) {
                         listnews = [
                             ...listnews,
+                            {
+                                news_title: record[i]["news_title"],
+                                news_descp: record[i]["news_descp"],
+                                news_url: record[i]["news_url"],
+                                news_image: record[i]["news_image"],
+                                
+                            },
+                        ];
+                    }
+                } else {
+                    alert("Error");
+                }
+            } else {
+                alert("Error");
+            }
+        }
+    }
+    async function initNewsMovie() {
+        const resnews = await fetch("/api/listmovietrailer", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+        if (!resnews.ok) {
+            const pasarMessage = `An error has occured: ${resnews.status}`;
+            throw new Error(pasarMessage);
+        } else {
+            const jsonnews = await resnews.json();
+            if (jsonnews.status == 200) {
+                let record = jsonnews.record;
+                if (record != null) {
+                    for (var i = 0; i < record.length; i++) {
+                        listnewsmovie = [
+                            ...listnewsmovie,
                             {
                                 news_title: record[i]["news_title"],
                                 news_descp: record[i]["news_descp"],
@@ -226,6 +263,7 @@
     };
     initPasaran()
     initNews()
+    initNewsMovie()
 </script>
 
 <div class="row" style="">
@@ -299,35 +337,95 @@
         {:else}
             <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
         {/if}
-        {#if listnews != ""}
-            <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
-                <div class="card-header"
-                    style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;">
-                    <h1 style="font-size: 13px;color:white;font-weight:bold;">Berita Hari Ini</h1>
-                </div>
-                <div
-                    class="card-body"
-                    style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:500px;">
-                    {#each listnews as rec}
-                        <a in:fade href="{rec.news_url}" target="_blank" style="color:white;text-decoration:none;" alt="{rec.news_title}">
-                            <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
-                                <img src="{rec.news_image}" class="card-img-top" alt="{rec.news_title}">
-                                <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
-                                    <h2 class="card-title" style="color:white;font-size:13px;text-decoration:underline;">{rec.news_title}</h2>
-                                    <p style="font-size:12px;">
-                                        {rec.news_descp}
-                                      </p>
-                                </div>
-                            </div>
-                        </a>
-                        <br>
-                    {/each}
-                    
-                </div>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <button
+                    class="nav-link active"
+                    id="pills-beritahariini-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-beritahariini"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-beritahariini"
+                    aria-selected="true">Berita Hari Ini</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    class="nav-link"
+                    id="pills-moviemingguini-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-moviemingguini"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-moviemingguini"
+                    aria-selected="false">Movie Minggu Ini</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="nav-tabContent">
+            <div
+                class="tab-pane fade show active"
+                id="pills-beritahariini"
+                role="tabpanel"
+                aria-labelledby="pills-beritahariini-tab">
+                {#if listnews != ""}
+                    <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
+                        <div
+                            class="card-body"
+                            style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:500px;">
+                            {#each listnews as rec}
+                                <a in:fade href="{rec.news_url}" target="_blank" style="color:white;text-decoration:none;" alt="{rec.news_title}">
+                                    <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
+                                        <img src="{rec.news_image}" class="card-img-top" alt="{rec.news_title}">
+                                        <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
+                                            <h2 class="card-title" style="color:white;font-size:13px;text-decoration:underline;">{rec.news_title}</h2>
+                                            <p style="font-size:12px;">
+                                                {rec.news_descp}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <br>
+                            {/each}
+                            
+                        </div>
+                    </div>
+                {:else}
+                    <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
             </div>
-        {:else}
-            <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
-        {/if}
+             <div
+                class="tab-pane fade"
+                id="pills-moviemingguini"
+                role="tabpanel"
+                aria-labelledby="pills-moviemingguini-tab">
+                {#if listnewsmovie != ""}
+                    <div class="card" style="background-color:#2c2c2c;border:none;margin:5px 1px 1px 1px;">
+                        <div
+                            class="card-body"
+                            style="margin: 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;overflow-y:scroll;height:500px;">
+                            {#each listnewsmovie as rec}
+                                <a in:fade href="{rec.news_url}" target="_blank" style="color:white;text-decoration:none;" alt="{rec.news_title}">
+                                    <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
+                                        <img src="{rec.news_image}" class="card-img-top" alt="{rec.news_title}">
+                                        <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
+                                            <h2 class="card-title" style="color:white;font-size:13px;text-decoration:underline;">{rec.news_title}</h2>
+                                            <p style="font-size:12px;">
+                                                {rec.news_descp}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <br>
+                            {/each}
+                            
+                        </div>
+                    </div>
+                {:else}
+                    <Placeholder total_placeholder="4" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+                {/if}
+            </div>
+        </div>
+        
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <button

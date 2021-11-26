@@ -1876,7 +1876,7 @@
         footer={false}
         card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;"
         header_style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;"
-        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:600px;">
+        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:650px;">
         <slot:template slot="header">
           <h1 style="font-size: 16px;color:white;font-weight:bold;">Berita Hari Ini</h1>
         </slot:template>
@@ -1898,7 +1898,7 @@
         </slot:template>
     </PanelFull>
     {:else}
-      <Placeholder total_placeholder="20" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+      <Placeholder total_placeholder="6" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
     {/if}
     {#if listnewsmovie != ""}
     <PanelFull
@@ -1906,7 +1906,7 @@
         footer={false}
         card_style="background-color:#2c2c2c;border:none;padding:0px;margin:0px;margin-top:5px;"
         header_style="padding: 10px 0px 5px 10px;margin:0px;background-color:#2c2c2c;border-bottom:2px solid #ed247a;"
-        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:770px;">
+        body_style="margin: 0px 0px 30px 0px;padding:0px;background-color: #2c2c2c;border-bottom:1px solid #2c2c2c;height:690px;">
         <slot:template slot="header">
           <h1 style="font-size: 16px;color:white;font-weight:bold;">Movie Minggu Ini</h1>
         </slot:template>
@@ -1928,7 +1928,7 @@
         </slot:template>
     </PanelFull>
     {:else}
-      <Placeholder total_placeholder="20" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
+      <Placeholder total_placeholder="6" card_style="background-color:#2c2c2c;border:none;margin-top:5px;" />
     {/if}
   </div>
 </div>
