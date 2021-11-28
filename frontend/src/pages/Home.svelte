@@ -652,6 +652,25 @@
     }
     
   }
+  const loaded = new Map();
+  function lazy(node, data) {
+		if (loaded.has(data.src)) {
+			node.setAttribute('src', data.src);
+		} else {
+			// simulate slow loading network
+			setTimeout(() => {
+				const img = new Image();
+				img.src = data.src;
+				img.onload = () => {
+					loaded.set(data.src, img);
+					node.setAttribute('src', data.src); 
+				};
+			}, 100);
+		}
+		return {
+			destroy(){} // noop
+		};
+	}
 </script>
 
 <div class="row" style="padding-top:10px;padding-bottom:10px;">
@@ -1885,7 +1904,11 @@
             <a in:fade href="{rec.news_url}" style="color:white;text-decoration: none;" target="_blank" alt="{rec.news_title}">
               <div class="card"
                 style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
-                <img src={rec.news_image} class="card-img-top" alt="{rec.news_title}" />
+                <img
+                    class="card-img-top"
+                    alt="{rec.movie_title}"
+                    src="placeholder.png"
+                    use:lazy="{{src: rec.news_image}}">
                 <div class="card-body" style="background-color:none;border:none;padding:5px 0px 0px 0px;margin:0px;">
                   <h2 class="card-title" style="color:white;font-size:15px;text-decoration: underline;">{rec.news_title}</h2>
                   <p style="font-size:13px;">
@@ -1915,7 +1938,11 @@
             <a in:fade href="{rec.news_url}" style="color:white;text-decoration: none;" target="_blank" alt="{rec.news_title}">
               <div class="card"
                 style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #ed247a;">
-                <img src={rec.news_image} class="card-img-top" alt="{rec.news_title}" />
+                <img
+                    class="card-img-top"
+                    alt="{rec.movie_title}"
+                    src="placeholder.png"
+                    use:lazy="{{src: rec.news_image}}">
                 <div class="card-body" style="background-color:none;border:none;padding:5px 0px 0px 0px;margin:0px;">
                   <h2 class="card-title" style="color:white;font-size:15px;text-decoration: underline;">{rec.news_title}</h2>
                   <p style="font-size:13px;">
@@ -1948,12 +1975,12 @@
       <li class="nav-item">
         <button
           class="nav-link active"
-          id="pills-all-tab"
+          id="pills-allresult-tab"
           data-bs-toggle="pill"
-          data-bs-target="#pills-all"
+          data-bs-target="#pills-allresult"
           type="button"
           role="tab"
-          aria-controls="pills-all"
+          aria-controls="pills-allresult"
           aria-selected="true">RESULT</button
         >
       </li>
@@ -1974,9 +2001,9 @@
   <slot:template slot="body">
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active"
-        id="pills-all"
+        id="pills-allresult"
         role="tabpanel"
-        aria-labelledby="pills-all-tab">
+        aria-labelledby="pills-allresult-tab">
         {#if listkeluaran != ""}
           <table class="table table-striped table-sm">
             <thead>

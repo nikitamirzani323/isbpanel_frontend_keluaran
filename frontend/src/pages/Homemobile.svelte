@@ -264,6 +264,25 @@
     initPasaran()
     initNews()
     initNewsMovie()
+    const loaded = new Map();
+  function lazy(node, data) {
+		if (loaded.has(data.src)) {
+			node.setAttribute('src', data.src);
+		} else {
+			// simulate slow loading network
+			setTimeout(() => {
+				const img = new Image();
+				img.src = data.src;
+				img.onload = () => {
+					loaded.set(data.src, img);
+					node.setAttribute('src', data.src); 
+				};
+			}, 100);
+		}
+		return {
+			destroy(){} // noop
+		};
+	}
 </script>
 
 <div class="row" style="">
@@ -375,7 +394,11 @@
                             {#each listnews as rec}
                                 <a in:fade href="{rec.news_url}" target="_blank" style="color:white;text-decoration:none;" alt="{rec.news_title}">
                                     <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
-                                        <img src="{rec.news_image}" class="card-img-top" alt="{rec.news_title}">
+                                        <img
+                                            class="card-img-top"
+                                            alt="{rec.movie_title}"
+                                            src="placeholder.png"
+                                            use:lazy="{{src: rec.news_image}}">
                                         <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
                                             <h2 class="card-title" style="color:white;font-size:13px;text-decoration:underline;">{rec.news_title}</h2>
                                             <p style="font-size:12px;">
@@ -406,7 +429,11 @@
                             {#each listnewsmovie as rec}
                                 <a in:fade href="{rec.news_url}" target="_blank" style="color:white;text-decoration:none;" alt="{rec.news_title}">
                                     <div class="card" style="background-color:#2c2c2c;border:none;margin:5px;border-bottom:1px solid #e80650;">
-                                        <img src="{rec.news_image}" class="card-img-top" alt="{rec.news_title}">
+                                        <img
+                                            class="card-img-top"
+                                            alt="{rec.movie_title}"
+                                            src="placeholder.png"
+                                            use:lazy="{{src: rec.news_image}}">
                                         <div class="card-body" style="background-color:none;border:none;padding:0px;margin:0px;">
                                             <h2 class="card-title" style="color:white;font-size:13px;text-decoration:underline;">{rec.news_title}</h2>
                                             <p style="font-size:12px;">
