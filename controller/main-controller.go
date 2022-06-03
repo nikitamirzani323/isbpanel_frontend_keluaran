@@ -36,7 +36,7 @@ type clienttafsirmimpi struct {
 	Tafsirmimpi_search string `json:"tafsirmimpi_search"`
 }
 
-const PATH string = config.PATH_API
+var PATH string = config.GetPathAPI()
 
 func ListPasaran(c *fiber.Ctx) error {
 	render_page := time.Now()
